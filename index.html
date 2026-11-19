@@ -1,0 +1,872 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SporTape · Combos deportivos</title>
+<meta name="description" content="Combos deportivos con canilleras, medias antideslizantes, medias recortadas y cinta cohesiva. Elige color y talla, paga seguro en línea y recíbelo en toda Colombia.">
+<meta name="theme-color" content="#FFF7EE">
+<meta property="og:title" content="SporTape · Combos deportivos">
+<meta property="og:description" content="Equípate completo desde $50.000. Envío a toda Colombia.">
+<meta property="og:image" content="img/portada-combo.jpg">
+<link rel="icon" href="favicon.png" sizes="64x64" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Colores del logo SporTape */
+  --magenta:#E2306C; --magenta-osc:#B81E52; --naranja:#F58A1F; --turquesa:#1DAFB8; --turquesa-osc:#0E8A93; --azul:#14223D;
+  --crema:#FFF7EE; --menta:#E9F8F8; --blanco:#FFFFFF; --texto:#14223D; --suave:#5B6478; --linea:#E6E1DA;
+  --radio:20px; --sombra:0 14px 40px rgba(20,34,61,.10);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth; scroll-padding-top:80px}
+body{margin:0; background:var(--blanco); color:var(--texto); font-family:"Outfit",system-ui,sans-serif; font-size:17px; line-height:1.55; -webkit-font-smoothing:antialiased}
+img{max-width:100%; display:block}
+a{color:inherit}
+button{font:inherit; color:inherit; cursor:pointer}
+.oculto{display:none !important}
+.contenedor{width:min(1140px, 100% - 36px); margin-inline:auto}
+h1,h2,h3{font-family:"Bricolage Grotesque",system-ui,sans-serif; font-weight:800; line-height:1.05; margin:0; letter-spacing:-.5px}
+:focus-visible{outline:3px solid var(--turquesa); outline-offset:3px}
+.degradado{background:linear-gradient(90deg,var(--magenta),var(--naranja)); -webkit-background-clip:text; background-clip:text; color:transparent}
+
+/* Botones */
+.boton{display:inline-flex; align-items:center; justify-content:center; gap:8px; border:0; border-radius:999px; padding:14px 26px; font-weight:800; font-size:16px; text-decoration:none; background:var(--magenta); color:#fff; transition:transform .12s, background .12s; box-shadow:0 8px 20px rgba(226,48,108,.28)}
+.boton:hover{background:var(--magenta-osc); transform:translateY(-1px)}
+.boton.turquesa{background:var(--turquesa); box-shadow:0 8px 20px rgba(29,175,184,.28)} .boton.turquesa:hover{background:var(--turquesa-osc)}
+.boton.borde{background:transparent; color:var(--texto); border:2px solid var(--texto); box-shadow:none} .boton.borde:hover{background:var(--texto); color:#fff}
+.boton.ancho{width:100%}
+.boton[disabled]{opacity:.6; cursor:wait}
+
+/* ===== SECCIÓN 1 · Portada ===== */
+.s1{background:var(--crema); position:relative; overflow:clip}
+.s1::before{content:""; position:absolute; width:520px; height:520px; border-radius:50%; background:radial-gradient(circle,rgba(29,175,184,.20),transparent 65%); right:-140px; top:-120px}
+.s1::after{content:""; position:absolute; width:440px; height:440px; border-radius:50%; background:radial-gradient(circle,rgba(245,138,31,.18),transparent 65%); left:-160px; bottom:-200px}
+header.barra{position:sticky; top:0; z-index:50; background:rgba(255,247,238,.92); backdrop-filter:blur(10px); border-bottom:1px solid rgba(20,34,61,.06)}
+.barra .contenedor{display:flex; align-items:center; gap:14px; height:74px}
+.logo img{height:54px; width:auto}
+.reloj-chip{display:flex; align-items:center; gap:10px; margin-inline:auto; background:var(--azul); color:#fff; border-radius:999px; padding:7px 8px 7px 16px; font-weight:700; font-size:14px; white-space:nowrap}
+.reloj-chip .etq{color:#FFD7A8}
+.reloj-chip .digitos{display:flex; gap:4px}
+.reloj-chip .digitos span{background:var(--magenta); border-radius:8px; padding:2px 7px; font-variant-numeric:tabular-nums; min-width:34px; text-align:center}
+.reloj-chip .digitos small{font-size:10px; opacity:.85; margin-left:1px}
+@media (max-width:640px){ .reloj-chip .etq{display:none} .reloj-chip{padding:6px; font-size:13px} .reloj-chip .digitos span{padding:2px 5px; min-width:30px} .logo img{height:44px} }
+@media (max-width:380px){ .reloj-chip .digitos span:first-child{display:none} }
+.boton-carrito{display:flex; align-items:center; gap:8px; background:#fff; border:2px solid var(--texto); border-radius:999px; padding:8px 14px; font-weight:800}
+.boton-carrito .cuenta{background:var(--magenta); color:#fff; border-radius:999px; min-width:24px; height:24px; display:grid; place-items:center; font-size:13px; padding:0 6px}
+@media (max-width:640px){ .boton-carrito .txt{display:none} .boton-carrito{padding:8px 11px} }
+.reloj-chip.sin-reloj{visibility:hidden}
+
+.portada{position:relative; z-index:1; display:grid; gap:22px 48px; align-items:center; padding:34px 0 64px;
+  grid-template-areas:"titulo" "imagen" "resto"}
+.p-titulo{grid-area:titulo} .p-resto{grid-area:resto} .ilustracion{grid-area:imagen}
+@media (min-width:900px){ .portada{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); grid-template-rows:auto 1fr; grid-template-areas:"titulo imagen" "resto imagen"; align-items:start; padding:40px 0 80px}
+  .p-titulo{padding-top:40px} .p-resto{position:sticky; top:96px} }
+.pastilla{display:inline-flex; align-items:center; gap:6px; background:var(--magenta); color:#fff; font-weight:800; font-size:13px; letter-spacing:1px; text-transform:uppercase; padding:6px 14px; border-radius:999px}
+.portada h1{font-size:clamp(36px,4.4vw,54px); margin:14px 0 0}
+.portada p.lema{color:var(--suave); font-size:16.5px; max-width:470px; margin:0 0 18px}
+.ventajas{gap:8px !important}
+.ventajas{list-style:none; margin:0 0 28px; padding:0; display:grid; gap:10px}
+.ventajas li{display:flex; align-items:center; gap:12px; font-weight:600}
+.ventajas .ico{width:38px; height:38px; border-radius:12px; display:grid; place-items:center; font-size:19px; flex:none}
+.ventajas li:nth-child(1) .ico{background:rgba(29,175,184,.16)} .ventajas li:nth-child(2) .ico{background:rgba(226,48,108,.13)} .ventajas li:nth-child(3) .ico{background:rgba(245,138,31,.16)}
+.ventajas small{display:block; color:var(--suave); font-weight:500; font-size:14px}
+.acciones{display:flex; flex-wrap:wrap; gap:12px}
+.ilustracion{position:relative; max-width:min(560px, 92vw); justify-self:center; width:100%; margin:10px 0 48px}
+.ilustracion .mancha{position:absolute; inset:8% -4% -6% 6%; border-radius:46% 54% 42% 58% / 52% 40% 60% 48%; background:linear-gradient(135deg,var(--turquesa),#62D2D8)}
+.ilustracion img{position:relative; width:100%; height:auto; border-radius:22px; border:5px solid #fff; box-shadow:0 24px 60px rgba(20,34,61,.22)}
+.ilustracion .sello{position:absolute; left:-12px; top:-16px; z-index:2; background:var(--magenta); color:#fff; border:4px solid #fff; border-radius:22px; padding:12px 20px 14px; transform:rotate(-8deg); box-shadow:0 18px 40px rgba(226,48,108,.45); line-height:1; text-align:center; animation:latido 2.4s ease-in-out infinite}
+.ilustracion .sello small{display:block; font-weight:800; font-size:15px; letter-spacing:2px; margin-bottom:4px}
+.ilustracion .sello strong{display:block; font-family:"Bricolage Grotesque"; font-size:36px; letter-spacing:-1px}
+.ilustracion .sello small{font-size:13px !important}
+@media (min-width:900px){ .ilustracion .sello{left:-70px; top:-20px; padding:16px 26px 18px} .ilustracion .sello small{font-size:17px !important} .ilustracion .sello strong{font-size:54px} }
+.ilustracion .sello-gratis{position:absolute; left:50%; bottom:-34px; z-index:2; transform:translateX(-50%) rotate(-3deg); background:var(--turquesa); color:#fff; border:4px solid #fff; border-radius:20px; padding:10px 22px 12px; text-align:center; line-height:1.15; box-shadow:0 16px 36px rgba(14,138,147,.4); white-space:nowrap}
+.ilustracion .sello-gratis small{display:block; font-weight:800; font-size:14px; letter-spacing:1.5px; text-transform:uppercase; color:#FFF6B0}
+.ilustracion .sello-gratis strong{display:block; font-family:"Bricolage Grotesque"; font-weight:800; font-size:21px; margin-top:3px}
+@media (min-width:900px){ .ilustracion .sello-gratis{padding:12px 28px 14px} .ilustracion .sello-gratis small{font-size:16px} .ilustracion .sello-gratis strong{font-size:26px} }
+@media (max-width:420px){ .ilustracion .sello-gratis strong{font-size:18px} .ilustracion .sello-gratis{padding:9px 16px 11px} }
+@keyframes latido{0%,100%{transform:rotate(-8deg) scale(1)} 50%{transform:rotate(-8deg) scale(1.06)}}
+@media (prefers-reduced-motion:reduce){ .ilustracion .sello{animation:none} }
+
+/* ===== SECCIÓN 2 · Combo estrella ===== */
+.s2{background:var(--blanco); padding:76px 0}
+.titulo-s{text-align:center; margin-bottom:34px}
+.titulo-s h2{font-size:clamp(32px,5vw,48px)}
+.titulo-s p{color:var(--suave); margin:10px auto 0; max-width:620px; font-size:18px}
+.aviso-bf{display:grid; gap:18px; align-items:center; background:linear-gradient(110deg,var(--magenta),var(--naranja)); color:#fff; border-radius:var(--radio); padding:20px 22px; margin-bottom:34px; box-shadow:0 14px 34px rgba(226,48,108,.25)}
+@media (min-width:760px){ .aviso-bf{grid-template-columns:auto 1fr auto; padding:20px 28px} }
+.aviso-bf img{width:96px; height:96px; object-fit:cover; border-radius:16px; background:#fff; border:3px solid #fff}
+.aviso-bf h3{font-size:clamp(22px,3vw,30px)}
+.aviso-bf p{margin:4px 0 0; opacity:.95}
+.aviso-bf .reloj-grande{display:flex; gap:6px}
+.aviso-bf .reloj-grande div{background:rgba(20,34,61,.88); border-radius:12px; min-width:58px; padding:6px 4px; text-align:center}
+.aviso-bf .reloj-grande b{display:block; font-family:"Bricolage Grotesque"; font-size:26px; line-height:1.1; font-variant-numeric:tabular-nums}
+.aviso-bf .reloj-grande small{font-size:11px; opacity:.85}
+.estrella{display:grid; gap:34px; align-items:start}
+@media (min-width:900px){ .estrella{grid-template-columns:1fr 1fr; gap:48px} .estrella .foto{position:sticky; top:96px} }
+.estrella .foto{background:var(--menta); border-radius:24px; overflow:hidden; position:relative}
+.estrella .foto img{width:100%; height:auto}
+.etiqueta-regalo{position:absolute; top:14px; left:14px; background:#fff; color:var(--magenta); font-weight:800; font-size:14px; border-radius:999px; padding:7px 13px; box-shadow:var(--sombra)}
+.estrella h3{font-size:clamp(30px,4vw,40px)}
+.precio{display:flex; align-items:baseline; gap:10px; margin:10px 0 4px}
+.precio strong{font-family:"Bricolage Grotesque"; font-size:44px; color:var(--magenta); line-height:1}
+.precio s{color:var(--suave)}
+.incluye{list-style:none; margin:14px 0 0; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:8px 14px}
+.incluye li{display:flex; gap:8px; align-items:flex-start; font-weight:500}
+.incluye li::before{content:"✓"; flex:none; width:22px; height:22px; border-radius:50%; background:var(--turquesa); color:#fff; font-size:13px; font-weight:800; display:grid; place-items:center; margin-top:2px}
+.regalo-linea{display:flex; gap:10px; align-items:center; background:#FFF0F5; border:1px dashed var(--magenta); color:var(--magenta-osc); border-radius:14px; padding:10px 14px; font-weight:700; margin-top:16px}
+.opciones{display:grid; gap:16px; margin-top:22px; padding-top:20px; border-top:1px solid var(--linea)}
+.opcion{border:0; margin:0; padding:0; min-width:0}
+.opcion legend{font-weight:800; font-size:15px; margin:0 0 8px; padding:0}
+.opcion legend span{color:var(--suave); font-weight:500}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{position:relative}
+.chip input{position:absolute; opacity:0; inset:0; margin:0; cursor:pointer}
+.chip label{display:flex; align-items:center; gap:8px; border:2px solid var(--linea); border-radius:999px; padding:7px 14px 7px 8px; font-weight:600; font-size:15px; cursor:pointer; background:#fff}
+.chip .muestra{width:20px; height:20px; border-radius:50%; border:1px solid rgba(20,34,61,.25)}
+.chip input:checked + label{border-color:var(--magenta); background:#FFF0F5; color:var(--magenta-osc)}
+.chip input:focus-visible + label{outline:3px solid var(--turquesa); outline-offset:2px}
+.chip input:disabled + label{opacity:.4; text-decoration:line-through; cursor:not-allowed}
+.chip.talla label{padding:7px 18px}
+.comprar{display:grid; grid-template-columns:auto 1fr 1fr; gap:10px; align-items:center}
+@media (max-width:480px){ .comprar{grid-template-columns:auto 1fr} .comprar .boton.borde{grid-column:1 / -1; order:3} }
+.cantidad{display:flex; align-items:center; border:2px solid var(--linea); border-radius:999px; overflow:hidden; height:52px; background:#fff}
+.cantidad button{width:42px; height:100%; background:none; border:0; font-size:22px; font-weight:700; color:var(--texto)}
+.cantidad output{min-width:30px; text-align:center; font-weight:800}
+.elige-regalo{display:grid; gap:14px; background:#FFF0F5; border:1px dashed var(--magenta); border-radius:16px; padding:14px}
+.elige-regalo .titulo-regalo{margin:0; font-weight:800; color:var(--magenta-osc)}
+.error-combo{color:#C62828; font-weight:700; font-size:15px; margin:0}
+
+/* ===== SECCIÓN 3 · Carrusel ===== */
+.s3{background:var(--menta); padding:76px 0}
+.carrusel{position:relative}
+.pista{display:grid; grid-auto-flow:column; grid-auto-columns:min(78%, 300px); gap:18px; overflow-x:auto; scroll-snap-type:x mandatory; padding:6px 4px 22px; scrollbar-width:none}
+.pista::-webkit-scrollbar{display:none}
+@media (min-width:900px){ .pista{grid-auto-columns:calc((100% - 54px) / 4)} }
+.tarjeta{scroll-snap-align:start; background:#fff; border-radius:var(--radio); overflow:hidden; box-shadow:var(--sombra); display:flex; flex-direction:column}
+.tarjeta .img{aspect-ratio:1; background:#F4F1EC; overflow:hidden; position:relative}
+.tarjeta .img{background:#fff}
+.tarjeta .img img{width:100%; height:100%; object-fit:contain}
+.mini-op legend{font-size:14px; margin-bottom:8px}
+.ver-colores{margin-top:10px; background:none; border:0; padding:0; color:var(--turquesa-osc); font-weight:700; font-size:14.5px; text-decoration:underline; text-underline-offset:3px}
+dialog.elegir:has(.guia-colores){width:min(760px, calc(100vw - 24px))}
+.leyenda{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); gap:6px 12px; font-size:14.5px}
+.leyenda li{display:flex; align-items:center; gap:8px}
+.leyenda b{width:22px; text-align:center; color:var(--magenta)}
+.leyenda i{width:18px; height:18px; border-radius:50%; border:1px solid rgba(20,34,61,.25); flex:none}
+.guia-colores{width:100%; height:auto; border-radius:12px; border:1px solid var(--linea)}
+.mini-op .elegido{color:var(--suave); font-weight:600}
+.muestras{display:flex; flex-wrap:wrap; gap:7px}
+.muestra-op{position:relative}
+.muestra-op input{position:absolute; opacity:0; inset:0; margin:0; cursor:pointer}
+.muestra-op label{display:block; width:28px; height:28px; border-radius:50%; border:1px solid rgba(20,34,61,.25); cursor:pointer; box-shadow:0 0 0 2px #fff}
+.muestra-op input:checked + label{box-shadow:0 0 0 2px #fff, 0 0 0 4px var(--magenta)}
+.muestra-op input:focus-visible + label{outline:3px solid var(--turquesa); outline-offset:3px}
+.sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+.mini-op .chip label{padding:5px 11px 5px 6px; font-size:14px}
+.mini-op .error-combo{font-size:13.5px; margin-top:6px}
+.tarjeta .img .etiqueta-regalo{top:10px; left:10px; font-size:12px; padding:5px 10px}
+.tarjeta .cuerpo{padding:16px 16px 18px; display:flex; flex-direction:column; gap:6px; flex:1}
+.tarjeta h3{font-size:20px; letter-spacing:-.2px}
+.tarjeta p{margin:0; color:var(--suave); font-size:14.5px; line-height:1.45}
+.tarjeta .valor{font-family:"Bricolage Grotesque"; font-weight:800; font-size:24px; color:var(--magenta); margin-top:auto; padding-top:6px}
+.tarjeta .boton{padding:11px 16px; font-size:15px}
+.flecha{position:absolute; top:38%; width:48px; height:48px; border-radius:50%; border:0; background:#fff; box-shadow:var(--sombra); font-size:22px; font-weight:800; display:none; place-items:center; z-index:2}
+.flecha.izq{left:-18px} .flecha.der{right:-18px}
+@media (min-width:900px){ .flecha{display:grid} }
+.puntos{display:flex; justify-content:center; gap:8px}
+.puntos button{width:10px; height:10px; border-radius:50%; border:0; padding:0; background:rgba(20,34,61,.2)}
+.puntos button.activo{background:var(--turquesa); width:26px; border-radius:6px}
+
+/* ===== SECCIÓN 4 · Cómo comprar, redes ===== */
+.s4{background:var(--blanco); padding:76px 0 60px}
+.cierre{display:grid; gap:34px; align-items:center}
+@media (min-width:900px){ .cierre{grid-template-columns:1.4fr 1fr; gap:48px} .cierre .pasos span{font-size:15.5px} }
+.atleta{position:relative}
+.atleta img{border-radius:28px; width:100%; height:auto; box-shadow:0 24px 60px rgba(20,34,61,.22)}
+.atleta .cinta{position:absolute; left:-8px; top:20px; background:var(--turquesa); color:#fff; font-family:"Bricolage Grotesque"; font-weight:800; font-size:22px; padding:10px 20px; border-radius:14px; transform:rotate(-4deg); box-shadow:var(--sombra)}
+@media (max-width:600px){ .atleta .cinta{font-size:17px; padding:8px 14px} }
+.pasos{list-style:none; margin:20px 0 22px; padding:0; display:grid; gap:14px; counter-reset:paso}
+.pasos li{display:grid; grid-template-columns:48px 1fr; gap:14px; align-items:start}
+.pasos li::before{counter-increment:paso; content:counter(paso); width:48px; height:48px; border-radius:14px; display:grid; place-items:center; font-family:"Bricolage Grotesque"; font-weight:800; font-size:22px; color:#fff}
+.pasos li:nth-child(1)::before{background:var(--magenta)} .pasos li:nth-child(2)::before{background:var(--naranja)} .pasos li:nth-child(3)::before{background:var(--turquesa)}
+.pasos b{display:block; font-size:18px}
+.pasos span{color:var(--suave)}
+.medios{display:flex; flex-wrap:wrap; gap:8px}
+.medios span{background:var(--crema); border:1px solid var(--linea); border-radius:10px; padding:6px 12px; font-weight:700; font-size:14px}
+.preguntas{margin-top:56px}
+.preguntas h2{font-size:clamp(28px,4vw,38px); margin-bottom:18px; text-align:center}
+.preguntas .grilla{display:grid; gap:10px}
+@media (min-width:900px){ .preguntas .grilla{grid-template-columns:1fr 1fr; align-items:start} }
+.preguntas details{background:var(--crema); border-radius:14px}
+.preguntas summary{cursor:pointer; list-style:none; padding:16px 18px; font-weight:700; display:flex; justify-content:space-between; gap:12px}
+.preguntas summary::-webkit-details-marker{display:none}
+.preguntas summary::after{content:"+"; color:var(--magenta); font-size:22px; line-height:1; font-weight:800}
+.preguntas details[open] summary::after{content:"−"}
+.preguntas details p{margin:0; padding:0 18px 16px; color:var(--suave)}
+.redes{margin-top:56px; display:flex; flex-direction:column; align-items:center; gap:14px; text-align:center}
+.redes img{height:96px; width:auto}
+.redes .enlaces{display:flex; flex-wrap:wrap; justify-content:center; gap:10px}
+.redes .enlaces{gap:14px !important}
+.redes .enlaces a{display:grid; place-items:center; width:56px; height:56px; border-radius:50%; color:#fff; text-decoration:none; box-shadow:var(--sombra); transition:transform .12s}
+.redes .enlaces a:hover{transform:translateY(-2px)}
+.redes .enlaces a:nth-child(1){background:linear-gradient(45deg,#F58A1F,#E2306C 55%,#8A3AB9)}
+.redes .enlaces a:nth-child(2){background:#1877F2}
+.redes .enlaces a:nth-child(3){background:#111}
+.redes .enlaces svg{width:26px; height:26px}
+footer.pie{background:var(--azul); color:#C9D2E3; font-size:14px; padding:18px 0 100px}
+footer.pie .contenedor{display:flex; flex-wrap:wrap; justify-content:space-between; gap:8px}
+@media (min-width:860px){ footer.pie{padding-bottom:18px} }
+
+/* Barra del carrito (celular) */
+.barra-carrito{position:fixed; left:12px; right:12px; bottom:12px; z-index:40; display:none; align-items:center; justify-content:space-between; gap:12px; background:var(--magenta); color:#fff; border:0; border-radius:16px; padding:15px 18px; font-weight:800; box-shadow:0 12px 30px rgba(20,34,61,.3)}
+body.con-carrito .barra-carrito{display:flex}
+@media (min-width:860px){ body.con-carrito .barra-carrito{left:auto; width:360px} }
+
+/* Soporte por WhatsApp (no es canal de venta) */
+.soporte-wa{position:fixed; left:14px; bottom:14px; z-index:41; display:flex; align-items:center; gap:8px; background:#25D366; color:#fff; text-decoration:none; font-weight:800; border-radius:999px; padding:10px 16px 10px 10px; box-shadow:0 10px 26px rgba(20,34,61,.25)}
+.soporte-wa svg{width:30px; height:30px}
+body.con-carrito .soporte-wa{bottom:86px}
+@media (min-width:860px){ body.con-carrito .soporte-wa{bottom:14px} }
+@media (max-width:480px){ .soporte-wa span{display:none} .soporte-wa{padding:10px} }
+
+/* Ventanas */
+dialog{border:0; padding:0; color:var(--texto); background:#fff}
+dialog::backdrop{background:rgba(20,34,61,.55)}
+dialog.carrito{margin:0 0 0 auto; height:100dvh; max-height:100dvh; width:min(460px,100vw)}
+.cabeza{display:flex; justify-content:space-between; align-items:center; padding:18px 20px; border-bottom:1px solid var(--linea)}
+.cabeza h2{font-size:26px}
+.cerrar{background:var(--crema); border:0; border-radius:12px; width:42px; height:42px; font-size:22px}
+.carrito .contenido{display:flex; flex-direction:column; height:calc(100dvh - 79px)}
+.carrito ul.lineas{list-style:none; margin:0; padding:10px 20px; overflow:auto; flex:1}
+.linea{display:grid; grid-template-columns:72px 1fr; gap:12px; padding:12px 0; border-bottom:1px solid var(--linea)}
+.linea img{width:72px; height:72px; object-fit:cover; border-radius:12px; background:var(--menta)}
+.linea h4{margin:0; font-size:16px} .linea .det{color:var(--suave); font-size:14px}
+.linea .fila{display:flex; justify-content:space-between; align-items:center; margin-top:6px}
+.linea .cantidad{height:38px} .linea .cantidad button{width:34px; font-size:18px}
+.linea .regalito{display:inline-block; margin-top:4px; color:var(--magenta-osc); background:#FFF0F5; font-size:12.5px; font-weight:700; border-radius:999px; padding:2px 9px}
+.vacio{text-align:center; color:var(--suave); padding:40px 10px}
+.resumen{padding:16px 20px 20px; border-top:1px solid var(--linea); background:var(--crema)}
+.linea-res{display:flex; justify-content:space-between; padding:3px 0; color:var(--suave)}
+.linea-res.total{color:var(--texto); font-weight:800; font-size:20px; padding:8px 0 14px}
+.nota{color:var(--suave); font-size:13.5px; text-align:center; margin:10px 0 0}
+.error{background:#FDECEC; color:#B71C1C; border-radius:12px; padding:10px 14px; font-size:15px; margin:0 0 12px}
+.aviso-pago{background:#FFF3E0; color:#8A4B00; border-radius:12px; padding:10px 14px; font-size:15px; margin:0 0 12px}
+form fieldset{border:0; margin:0 0 6px; padding:0}
+form legend{font-family:"Bricolage Grotesque"; font-weight:800; font-size:20px; margin:10px 0 8px}
+.campo{display:flex; flex-direction:column; gap:5px; margin-bottom:12px}
+.campo label{font-weight:600; font-size:15px}
+.campo label small{color:var(--suave); font-weight:500}
+.campo input,.campo select{height:48px; border-radius:12px; border:2px solid var(--linea); background:#fff; color:var(--texto); padding:0 14px; font:inherit; font-size:16px}
+.campo input:focus,.campo select:focus{outline:none; border-color:var(--turquesa)}
+.campo.con-error input,.campo.con-error select{border-color:#E53935}
+.campo .ayuda{color:var(--suave); font-size:13px}
+.campo .error-campo{color:#C62828; font-size:13px; font-weight:600}
+.volver-carrito{background:none; border:0; color:var(--turquesa-osc); font-weight:700; padding:6px 0}
+dialog.elegir{border-radius:22px; width:min(440px, calc(100vw - 24px)); max-height:calc(100dvh - 24px); overflow:auto}
+.elegir .cuerpo-elegir{padding:18px 20px 22px; display:grid; gap:16px}
+.elegir .mini{display:flex; gap:14px; align-items:center}
+.elegir .mini img{width:84px; height:84px; object-fit:cover; border-radius:14px; background:var(--menta)}
+.elegir .mini strong{display:block; font-size:18px}
+.elegir .mini span{color:var(--magenta); font-weight:800; font-family:"Bricolage Grotesque"; font-size:22px}
+
+/* Gracias */
+.gracias{min-height:70vh; display:grid; place-items:center; text-align:center; padding:60px 0; background:var(--crema)}
+.gracias h1{font-size:clamp(42px,7vw,72px); margin-bottom:12px}
+.gracias p{color:var(--suave); font-size:19px; max-width:560px; margin:0 auto 24px}
+
+.toast{position:fixed; left:50%; bottom:88px; transform:translateX(-50%) translateY(20px); opacity:0; background:var(--azul); color:#fff; font-weight:700; border-radius:12px; padding:12px 18px; z-index:60; transition:.25s; pointer-events:none; max-width:calc(100% - 32px); text-align:center}
+.toast.ver{opacity:1; transform:translateX(-50%) translateY(0)}
+
+/* Ventana de Wompi en celular: fija y con desplazamiento propio */
+html.pagando, html.pagando body{overflow:hidden; overscroll-behavior:none}
+html.pagando .waybox-modal{position:fixed !important; top:5px !important; max-height:calc(100dvh - 10px) !important; overflow-y:auto !important; -webkit-overflow-scrolling:touch; overscroll-behavior:contain}
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} .boton,.toast{transition:none} }
+</style>
+<script src="https://checkout.wompi.co/widget.js"></script>
+</head>
+<body>
+
+<header class="barra">
+    <div class="contenedor">
+      <a class="logo" href="./" aria-label="SporTape, inicio"><img src="img/logo.png" alt="SporTape" width="320" height="214"></a>
+      <div class="reloj-chip sin-reloj" id="reloj-chip" role="timer" aria-label="Tiempo que queda de Black Days">
+        <span class="etq">Black Days terminan en</span>
+        <span class="digitos"><span><b data-r="d">00</b><small>d</small></span><span><b data-r="h">00</b><small>h</small></span><span><b data-r="m">00</b><small>m</small></span><span><b data-r="s">00</b><small>s</small></span></span>
+      </div>
+      <button class="boton-carrito" id="abrir-carrito" type="button" aria-label="Abrir carrito">🛒 <span class="txt">Carrito</span> <span class="cuenta" id="cuenta">0</span></button>
+    </div>
+  </header>
+<main id="principal">
+  <!-- ============ SECCIÓN 1 · Portada ============ -->
+  <div class="s1">
+    <section class="contenedor portada" aria-labelledby="titulo-portada">
+      <div class="p-titulo">
+        <span class="pastilla" id="pastilla-portada">🔥 Black Days</span>
+        <h1 id="titulo-portada">Arma tu juego completo con nuestro <span class="degradado">súper combo</span></h1>
+      </div>
+      <div class="p-resto">
+        <p class="lema">Combos deportivos con canilleras, medias antideslizantes, medias recortadas y cinta cohesiva. Eliges el color y la talla, pagas en línea y te llega a casa.</p>
+        <ul class="ventajas">
+          <li><span class="ico" aria-hidden="true">🚚</span><span>Envíos a toda Colombia<small id="ventaja-envio">Bogotá y Soacha $10.000 · Resto del país $17.000</small></span></li>
+          <li><span class="ico" aria-hidden="true">🔒</span><span>Pago seguro con Wompi<small>Nequi, Bancolombia, tarjeta o PSE</small></span></li>
+          <li><span class="ico" aria-hidden="true">👟</span><span>Tallas M y L<small id="ventaja-tallas">M: 32 a 35 en calzado · L: 36 a 41 en calzado</small></span></li>
+        </ul>
+        <div class="acciones">
+          <a class="boton" href="#combo">Ver el combo</a>
+          <a class="boton borde" href="#como-comprar">Cómo comprar</a>
+        </div>
+      </div>
+      <div class="ilustracion">
+        <div class="mancha" aria-hidden="true"></div>
+        <img src="img/portada-combo.jpg" alt="Combo Deportivo: canilleras, medias, perneras y cinta cohesiva, en naranja, verde neón, blanco, amarillo y negro" width="768" height="1376">
+        <div class="sello"><small>POR SOLO</small><strong id="desde">$50.000</strong></div>
+        <div class="sello-gratis oculto" id="sello-gratis"><small>🎁 Y llévate GRATIS</small><strong>un par de perneras<br>+ un par de canilleras</strong></div>
+      </div>
+    </section>
+  </div>
+
+    <!-- ============ SECCIÓN 2 · Combo estrella + Black Days ============ -->
+    <section class="s2" id="combo" aria-labelledby="titulo-combo">
+      <div class="contenedor">
+        <div class="aviso-bf oculto" id="aviso-bf">
+          <img src="img/regalo-canilleras-perneras.jpg" alt="Canilleras y perneras de regalo" width="800" height="800" loading="lazy">
+          <div>
+            <h3>¡Aprovecha los Black Days!</h3>
+            <p id="texto-regalo">Con la compra de cualquier combo te llevas unas perneras y unas canilleras de regalo.</p>
+          </div>
+          <div class="reloj-grande oculto" id="reloj-grande" aria-hidden="true">
+            <div><b data-r="d">00</b><small>días</small></div><div><b data-r="h">00</b><small>horas</small></div><div><b data-r="m">00</b><small>min</small></div><div><b data-r="s">00</b><small>seg</small></div>
+          </div>
+        </div>
+        <div class="estrella" id="estrella"></div>
+      </div>
+    </section>
+
+    <!-- ============ SECCIÓN 3 · Complementa tu combo ============ -->
+    <section class="s3" id="complementa" aria-labelledby="titulo-complementa">
+      <div class="contenedor">
+        <div class="titulo-s">
+          <h2 id="titulo-complementa">Complementa tu <span class="degradado">combo</span></h2>
+          <p>Cintas, medias, balón y bandas para entrenar al máximo. Todo llega en el mismo pedido.</p>
+        </div>
+        <div class="carrusel">
+          <button class="flecha izq" type="button" id="flecha-izq" aria-label="Anteriores">‹</button>
+          <div class="pista" id="pista" tabindex="0" aria-label="Productos para complementar tu combo"></div>
+          <button class="flecha der" type="button" id="flecha-der" aria-label="Siguientes">›</button>
+        </div>
+        <div class="puntos" id="puntos" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- ============ SECCIÓN 4 · Cómo comprar, preguntas y redes ============ -->
+    <section class="s4" id="como-comprar" aria-labelledby="titulo-como">
+      <div class="contenedor">
+        <div class="cierre">
+          <div class="atleta">
+            <img src="img/deportista.jpg" alt="Futbolista con medias antideslizantes poniéndose cinta cohesiva en la cancha" width="1000" height="1000" loading="lazy">
+            <span class="cinta">Tus aliados en el deporte</span>
+          </div>
+          <div>
+            <h2 id="titulo-como" style="font-size:clamp(32px,5vw,46px)">Cómo <span class="degradado">comprar</span></h2>
+            <ol class="pasos">
+              <li><div><b>Elige tu combo</b><span>Escoge el color, la talla y cuántos quieres. Puedes sumar más productos al mismo pedido.</span></div></li>
+              <li><div><b>Escribe tus datos de envío</b><span>Nombre, celular y dirección. El envío se calcula solo según tu ciudad.</span></div></li>
+              <li><div><b>Paga en línea con Wompi</b><span>Apenas se apruebe el pago preparamos tu pedido y te llega en 3 a 4 días hábiles.</span></div></li>
+            </ol>
+            <div class="medios" aria-label="Medios de pago"><span>Nequi</span><span>Botón Bancolombia</span><span>Tarjeta débito o crédito</span><span>PSE</span></div>
+            <a class="boton turquesa" href="#combo" style="margin-top:22px">Quiero mi combo</a>
+          </div>
+        </div>
+
+        <div class="preguntas" aria-labelledby="titulo-preguntas">
+          <h2 id="titulo-preguntas">Preguntas frecuentes</h2>
+          <div class="grilla">
+            <details><summary>¿Cuánto tarda en llegar?</summary><p>Entre 3 y 4 días hábiles después de aprobado el pago, según tu ciudad.</p></details>
+            <details><summary>¿Tienes un problema con tu pedido o tu pago?</summary><p>Escríbenos a nuestro <a href="https://wa.me/573138605888?text=Hola%2C%20necesito%20soporte%20con%20mi%20pedido%20de%20SporTape" target="_blank" rel="noopener">WhatsApp de soporte</a>, solo si necesitas ayuda con tus pagos, envíos y pedidos ya hechos. Siempre será un gusto atenderte y ayudarte para que tengas la mejor experiencia.</p></details>
+            <details id="faq-regalo" class="oculto"><summary>¿Cómo funciona el regalo de Black Days?</summary><p id="faq-regalo-texto"></p></details>
+          </div>
+        </div>
+
+        <div class="redes">
+          <img src="img/logo.png" alt="SporTape" width="320" height="214" loading="lazy">
+          <p style="margin:0; color:var(--suave)">Síguenos y entérate de nuevos productos y promociones</p>
+          <div class="enlaces">
+            <a href="https://www.instagram.com/sportape_/" target="_blank" rel="noopener" aria-label="Instagram de SporTape" title="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+            <a href="https://www.facebook.com/share/1GjVdAxx6m/" target="_blank" rel="noopener" aria-label="Facebook de SporTape" title="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8h3V4h-3c-2.8 0-4.5 1.8-4.5 4.6V11H7v4h2.5v8h4v-8h3l.6-4H13.5V8.9c0-.6.3-.9.5-.9z"/></svg></a>
+            <a href="https://www.tiktok.com/@sportape" target="_blank" rel="noopener" aria-label="TikTok de SporTape" title="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 3c.4 2.2 1.8 3.7 4 3.9v3.2a7.5 7.5 0 0 1-4-1.2v6.3a6 6 0 1 1-6-6h.5v3.3a2.8 2.8 0 1 0 2.2 2.7V3h3.3z"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+<section class="gracias oculto" id="vista-gracias">
+  <div class="contenedor">
+    <h1>¡Gracias por tu <span class="degradado">compra!</span></h1>
+    <p>Recibimos tu pago. Te llegará la confirmación a tu correo y te avisaremos cuando despachemos tu pedido. ¿Alguna duda con tu pedido? Escríbenos a soporte por <a href="https://wa.me/573138605888?text=Hola%2C%20necesito%20soporte%20con%20mi%20pedido%20de%20SporTape" target="_blank" rel="noopener">WhatsApp 313 860 5888</a>.</p>
+    <a class="boton" href="./">Volver a la tienda</a>
+  </div>
+</section>
+
+<footer class="pie">
+  <div class="contenedor"><span>© SporTape · Equipamiento deportivo</span><span>Pago seguro con Wompi</span></div>
+</footer>
+
+<a class="soporte-wa" href="https://wa.me/573138605888?text=Hola%2C%20necesito%20soporte%20con%20mi%20pedido%20de%20SporTape" target="_blank" rel="noopener" aria-label="Soporte por WhatsApp: ayuda con pagos, envíos y pedidos">
+  <svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#fff" d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3zm0 23.6c-2 0-3.9-.5-5.6-1.5l-.4-.2-3.9 1 1-3.8-.3-.4A10.6 10.6 0 1 1 16 26.6zm5.8-7.9c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7.1a8.7 8.7 0 0 1-4.3-3.8c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.7 3.7 0 0 0-1.1 2.7 6.4 6.4 0 0 0 1.3 3.4 14.6 14.6 0 0 0 5.6 4.9c2.1.9 2.9 1 3.9.8a3.3 3.3 0 0 0 2.2-1.5 2.7 2.7 0 0 0 .2-1.5c-.1-.2-.3-.3-.7-.4z"/></svg>
+  <span>Soporte</span>
+</a>
+<button class="barra-carrito" id="barra-carrito" type="button"><span id="barra-texto">Ver carrito</span><span>Ver carrito →</span></button>
+
+<dialog class="carrito" id="carrito" aria-labelledby="titulo-carrito">
+  <div class="cabeza"><h2 id="titulo-carrito">Tu carrito</h2><button class="cerrar" id="cerrar-carrito" type="button" aria-label="Cerrar carrito">×</button></div>
+  <div class="contenido"><ul class="lineas" id="lista-carrito"></ul><div class="resumen" id="resumen-carrito"></div></div>
+</dialog>
+
+<dialog class="elegir" id="elegir" aria-labelledby="titulo-elegir">
+  <div class="cabeza"><h2 id="titulo-elegir">Elige color y talla</h2><button class="cerrar" type="button" id="cerrar-elegir" aria-label="Cerrar">×</button></div>
+  <div class="cuerpo-elegir" id="cuerpo-elegir"></div>
+</dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="productos.js"></script>
+<script src="/api/productos.js"></script>
+<script>
+/* SporTape · combos, productos, colores, tallas y regalo se editan en la hoja de Google "pagina web SporTape" */
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+const pesos = n => "$" + Math.round(n).toLocaleString("es-CO");
+const norm = s => String(s).normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().trim();
+const COLOR_HEX = { negro: "#111111", blanco: "#FFFFFF", naranja: "#FF7A1A", "verde neon": "#B6F500", verde: "#3CCB4A", amarillo: "#FFD21F", rojo: "#E5212E", azul: "#1F4FE0", rosado: "#FF5FA8", rosa: "#FF5FA8", gris: "#8A8A8A", morado: "#7B3FE4", fucsia: "#E8288F", celeste: "#5BC8F5" };
+Object.assign(COLOR_HEX, { "azul rey": "#1F4FE0", "azul oscuro": "#1B2E6B", "azul claro": "#2BA3E0", piel: "#D9B48F", cafe: "#6B4226",
+  aguamarina: "#2EC4B6", "verde oscuro": "#0F5A3A", verde: "#3CB043", gris: "#5F6368" });
+const CAMUFLADO = { rosado: ["#F6B8D1", "#E0457B", "#FFFFFF", "#7A2443"], azul: ["#9FD3F2", "#1F6FB8", "#0E2F57", "#FFFFFF"],
+  verde: ["#C9B98A", "#4E6B2F", "#1F2E16", "#8A6B3E"], "verde claro": ["#D7F59A", "#7BC043", "#2E4A1A", "#FFFFFF"], gris: ["#D0D0D0", "#8A8A8A", "#3C3C3C", "#FFFFFF"] };
+// Muestras: color liso, "Negro con naranja" (dos colores), "Camuflado …" y "… con huellas"
+const hex = nombre => {
+  const n = norm(nombre);
+  if (n.startsWith("camuflado ")) { const c = CAMUFLADO[n.slice(10)] || CAMUFLADO.gris;
+    return `radial-gradient(circle at 30% 30%, ${c[1]} 0 22%, transparent 23%), radial-gradient(circle at 70% 60%, ${c[2]} 0 20%, transparent 21%), radial-gradient(circle at 35% 78%, ${c[3]} 0 16%, transparent 17%), ${c[0]}`; }
+  if (n.endsWith(" con huellas")) { const base = COLOR_HEX[n.slice(0, -12)] || "#999";
+    return `radial-gradient(circle at 32% 38%, #fff 0 15%, transparent 16%), radial-gradient(circle at 66% 64%, #fff 0 15%, transparent 16%), ${base}`; }
+  const [a, b] = n.split(" con ");
+  return b ? `linear-gradient(135deg, ${COLOR_HEX[a] || "#999"} 50%, ${COLOR_HEX[b] || "#999"} 50%)` : (COLOR_HEX[a] || "#999"); };
+const DEPARTAMENTOS = ["Bogotá D.C.", "Amazonas", "Antioquia", "Arauca", "Atlántico", "Bolívar", "Boyacá", "Caldas", "Caquetá", "Casanare",
+  "Cauca", "Cesar", "Chocó", "Córdoba", "Cundinamarca", "Guainía", "Guaviare", "Huila", "La Guajira", "Magdalena", "Meta", "Nariño",
+  "Norte de Santander", "Putumayo", "Quindío", "Risaralda", "San Andrés y Providencia", "Santander", "Sucre", "Tolima",
+  "Valle del Cauca", "Vaupés", "Vichada"];
+const CAMPOS = ["nombre", "cedula", "celular", "correo", "departamento", "ciudad", "direccion", "barrio", "localidad", "especificaciones"];
+const TODOS = TIENDA.combos.map(c => ({ ...c, tipo: c.tipo || "combo" }));
+const COLORES = TIENDA.colores, TALLAS = TIENDA.tallas.filter(t => t.activo), REGALO = TIENDA.regalo || {};
+const FIN_REGALO = REGALO.termina ? Date.parse(REGALO.termina) : NaN;
+if (REGALO.activo && FIN_REGALO && Date.now() >= FIN_REGALO) REGALO.activo = false;
+const buscar = id => TODOS.find(c => c.id === id);
+const esCombo = p => p && p.tipo !== "producto";
+const colorActivo = n => COLORES.some(c => c.nombre === n && c.activo);
+// El combo estrella es "combo-deportivo" (o el combo más barato); los demás van al carrusel
+const COMBOS = TODOS.filter(esCombo);
+const ESTRELLA = buscar("combo-deportivo") || COMBOS.reduce((a, c) => c.precio < a.precio ? c : a, COMBOS[0]);
+const CARRUSEL = TODOS.filter(p => p.tipo === "producto");   // solo productos al detal
+const opcionesDe = p => (!esCombo(p) && Array.isArray(p.opciones)) ? p.opciones : [];
+
+/* ---------- Estado ---------- */
+let carrito = [];   // [{ id, color, talla, cantidad }]
+try { carrito = JSON.parse(localStorage.getItem("sportape-carrito") || "[]") || []; } catch { carrito = []; }
+const tallaValida = t => TALLAS.some(x => x.nombre === t);
+carrito = carrito.filter(l => { const p = buscar(l.id); return p && l.cantidad > 0 && (!esCombo(p) ? (!(p.opciones || []).length || p.opciones.includes(l.color)) : (colorActivo(l.color) && tallaValida(l.talla)
+  && (!REGALO.activo || (colorActivo(l.regaloColor) && tallaValida(l.regaloTalla))))); });
+let datos = {};
+try { datos = JSON.parse(sessionStorage.getItem("sportape-datos") || "{}") || {}; } catch { datos = {}; }
+let paso = "carrito", errorPago = "", avisoPago = "", erroresCampo = {};
+const guardar = () => { try { localStorage.setItem("sportape-carrito", JSON.stringify(carrito)); } catch {} pintarCuenta(); };
+const unidades = () => carrito.reduce((a, l) => a + l.cantidad, 0);
+const subtotal = () => carrito.reduce((a, l) => a + (buscar(l.id)?.precio || 0) * l.cantidad, 0);
+const hayCombo = () => carrito.some(l => esCombo(buscar(l.id)));
+const zonaDe = d => !d.departamento ? null : (d.departamento === "Bogotá D.C." || /^bogot/.test(norm(d.ciudad || "")) || norm(d.ciudad || "") === "soacha") ? "bogota" : "nacional";
+const valorEnvio = () => { const z = zonaDe(datos); return z ? ENVIOS[z].valor : null; };
+
+let tToast;
+function aviso(t) { const el = $("toast"); el.textContent = t; el.classList.add("ver"); clearTimeout(tToast); tToast = setTimeout(() => el.classList.remove("ver"), 2400); }
+function pintarCuenta() {
+  const n = unidades();
+  $("cuenta").textContent = n;
+  document.body.classList.toggle("con-carrito", n > 0);
+  $("barra-texto").textContent = `${n} ${n === 1 ? "producto" : "productos"} · ${pesos(subtotal())}`;
+}
+
+/* ---------- Selectores de color, talla y cantidad ---------- */
+function chips(nombre, k) {
+  return COLORES.map((co, i) => `<span class="chip"><input type="radio" name="${nombre}" id="${nombre}-${k}-${i}" value="${esc(co.nombre)}" ${co.activo ? "" : "disabled"}><label for="${nombre}-${k}-${i}"><i class="muestra" style="background:${hex(co.nombre)}"></i>${esc(co.nombre)}${co.activo ? "" : " (agotado)"}</label></span>`).join("");
+}
+function tallasChips(nombre, k) {
+  return TALLAS.map((t, i) => `<span class="chip talla"><input type="radio" name="${nombre}" id="${nombre}-${k}-${i}" value="${esc(t.nombre)}"><label for="${nombre}-${k}-${i}">${esc(t.nombre)}</label></span>`).join("");
+}
+function selectores(c, pre) {
+  const colores = chips(pre + "-color", "co"), tallas = tallasChips(pre + "-talla", "ta");
+  return `<div class="opciones" data-id="${esc(c.id)}" data-pre="${pre}">
+    <fieldset class="opcion"><legend>Color</legend><div class="chips">${colores}</div></fieldset>
+    <fieldset class="opcion"><legend>Talla <span>(${esc(TALLAS.map(t => `${t.nombre}: ${t.detalle}`).join(" · "))})</span></legend><div class="chips">${tallas}</div></fieldset>
+    ${REGALO.activo ? `<div class="elige-regalo">
+      <p class="titulo-regalo">🎁 Elige el color y la talla de tu pernera y canillera de regalo</p>
+      <fieldset class="opcion"><legend>Color del regalo</legend><div class="chips">${chips(pre + "-rcolor", "rco")}</div></fieldset>
+      <fieldset class="opcion"><legend>Talla del regalo</legend><div class="chips">${tallasChips(pre + "-rtalla", "rta")}</div></fieldset>
+    </div>` : ""}
+    <p class="error-combo" role="alert" hidden></p>
+    <div class="comprar">
+      <div class="cantidad" aria-label="Cantidad"><button type="button" data-cant="-1" aria-label="Quitar uno">−</button><output>1</output><button type="button" data-cant="1" aria-label="Agregar uno">+</button></div>
+      <button type="button" class="boton borde" data-accion="agregar">Agregar</button>
+      <button type="button" class="boton" data-accion="comprar">Comprar</button>
+    </div>
+  </div>`;
+}
+// Un solo manejador para el combo estrella y la ventana "Elige color y talla"
+function manejarSelector(e) {
+  const caja = e.target.closest(".opciones"); if (!caja) return;
+  const b = e.target.closest("button"); if (!b) return;
+  const salida = caja.querySelector(".cantidad output");
+  if (b.dataset.cant) { salida.value = salida.textContent = Math.min(10, Math.max(1, Number(salida.textContent) + Number(b.dataset.cant))); return; }
+  if (!b.dataset.accion) return;
+  const pre = caja.dataset.pre, id = caja.dataset.id;
+  const color = caja.querySelector(`input[name="${pre}-color"]:checked`)?.value;
+  const talla = caja.querySelector(`input[name="${pre}-talla"]:checked`)?.value;
+  const regaloColor = caja.querySelector(`input[name="${pre}-rcolor"]:checked`)?.value || "";
+  const regaloTalla = caja.querySelector(`input[name="${pre}-rtalla"]:checked`)?.value || "";
+  const err = caja.querySelector(".error-combo");
+  const falta = [!color && "el color", !talla && "la talla",
+    REGALO.activo && !regaloColor && "el color del regalo", REGALO.activo && !regaloTalla && "la talla del regalo"].filter(Boolean);
+  if (falta.length) { err.textContent = "Elige " + (falta.length > 1 ? falta.slice(0, -1).join(", ") + " y " + falta.at(-1) : falta[0]) + "."; err.hidden = false; return; }
+  err.hidden = true;
+  agregar(id, color, talla, Number(salida.textContent), REGALO.activo ? regaloColor : "", REGALO.activo ? regaloTalla : "");
+  if ($("elegir").open) $("elegir").close();
+  if (b.dataset.accion === "comprar") abrirCarrito(); else aviso(`${buscar(id).nombre} agregado al carrito`);
+}
+document.addEventListener("change", e => { const caja = e.target.closest(".opciones"); if (caja) caja.querySelector(".error-combo").hidden = true; });
+
+/* ---------- Página ---------- */
+function pintarPagina() {
+  $("desde").textContent = pesos(Math.min(...COMBOS.map(c => c.precio)));
+  const envio = `${ENVIOS.bogota.nombre} ${pesos(ENVIOS.bogota.valor)} · ${ENVIOS.nacional.nombre} ${pesos(ENVIOS.nacional.valor)}`;
+  $("ventaja-envio").textContent = envio;
+  $("ventaja-tallas").textContent = TALLAS.map(t => `${t.nombre}: ${t.detalle}`).join(" · ");
+  if (REGALO.activo) {
+    $("aviso-bf").classList.remove("oculto");
+    $("sello-gratis").classList.remove("oculto");
+    $("texto-regalo").textContent = REGALO.detalle;
+    $("faq-regalo").classList.remove("oculto");
+    const fechaTxt = FIN_REGALO ? new Date(FIN_REGALO).toLocaleDateString("es-CO", { day: "numeric", month: "long", timeZone: "America/Bogota" }) : "";
+    $("faq-regalo-texto").textContent = `${REGALO.detalle} Aplica para los combos: al elegir tu combo escoges también el color y la talla del regalo, y va en el mismo paquete.${fechaTxt ? ` Válido hasta el ${fechaTxt}.` : ""}`;
+    if (FIN_REGALO) { $("reloj-grande").classList.remove("oculto"); iniciarReloj(); }
+  } else $("pastilla-portada").textContent = "⚽ Combos deportivos";
+  pintarEstrella();
+  if (CARRUSEL.length) pintarCarrusel(); else $("complementa").classList.add("oculto");
+}
+function pintarEstrella() {
+  const c = ESTRELLA;
+  $("estrella").innerHTML = `
+    <div class="foto"><img src="${esc(c.fotos[0] || "")}" alt="${esc(c.nombre)}: ${esc(c.incluye.join(", "))}, y de obsequio perneras y canilleras" width="1080" height="1350">
+      ${REGALO.activo ? `<span class="etiqueta-regalo">🎁 + regalo</span>` : ""}</div>
+    <div>
+      <h3 id="titulo-combo">${esc(c.nombre)}</h3>
+      <div class="precio"><strong>${pesos(c.precio)}</strong>${c.precioAntes ? `<s>${pesos(c.precioAntes)}</s>` : ""}</div>
+      <ul class="incluye">${c.incluye.map(i => `<li>${esc(i)}</li>`).join("")}</ul>
+      ${c.inventario === 0 ? `<p class="aviso-pago" style="margin-top:20px">Agotado por ahora</p>` : selectores(c, "estrella")}
+    </div>`;
+}
+function pintarCarrusel() {
+  $("pista").innerHTML = CARRUSEL.map(p => {
+    const agotado = p.inventario === 0;
+    const texto = esCombo(p) ? p.incluye.join(", ") : p.descripcion;
+    return `<article class="tarjeta">
+      <div class="img"><img src="${esc(p.fotos[0] || "img/logo.png")}" alt="${esc(p.nombre)}" loading="lazy">
+        ${esCombo(p) && REGALO.activo ? `<span class="etiqueta-regalo">🎁 + regalo</span>` : ""}</div>
+      <div class="cuerpo">
+        <h3>${esc(p.nombre)}</h3>
+        ${texto ? `<p>${esc(texto)}</p>` : ""}
+        ${opcionesDe(p).length ? `<fieldset class="opcion mini-op"><legend>Color: <span class="elegido">elige uno</span></legend><div class="muestras">${opcionesDe(p).map((o, i) =>
+          `<span class="muestra-op"><input type="radio" name="op-${esc(p.id)}" id="op-${esc(p.id)}-${i}" value="${esc(o)}" data-foto="${esc(p.fotos[i] || p.fotos[0] || "")}"><label for="op-${esc(p.id)}-${i}" title="${esc(o)}" style="background:${hex(o)}"><span class="sr">${esc(o)}</span></label></span>`).join("")}</div>
+          <p class="error-combo" role="alert" hidden>Elige el color.</p>
+          ${p.guia ? `<button type="button" class="ver-colores" data-guia="${esc(p.guia)}" data-id="${esc(p.id)}" data-nombre="${esc(p.nombre)}">🎨 Ver todos los colores</button>` : ""}</fieldset>` : ""}
+        <div class="valor">${pesos(p.precio)}</div>
+        <button type="button" class="boton turquesa" data-producto="${esc(p.id)}" ${agotado ? "disabled" : ""}>${agotado ? "Agotado" : "Agregar al carrito"}</button>
+      </div></article>`;
+  }).join("");
+  $("puntos").innerHTML = CARRUSEL.map((_, i) => `<button type="button" tabindex="-1" data-i="${i}"></button>`).join("");
+  marcarPunto();
+}
+$("pista").addEventListener("change", e => {   // al elegir color cambia la foto
+  const r = e.target.closest('input[name^="op-"]'); if (!r) return;
+  const tarjeta = r.closest(".tarjeta");
+  if (r.dataset.foto) tarjeta.querySelector(".img img").src = r.dataset.foto;
+  tarjeta.querySelector(".mini-op .elegido").textContent = r.value;
+  tarjeta.querySelector(".mini-op .error-combo").hidden = true;
+});
+$("pista").addEventListener("click", e => {
+  const g = e.target.closest(".ver-colores");
+  if (g) { $("titulo-elegir").textContent = `Colores · ${g.dataset.nombre}`;
+    $("cuerpo-elegir").innerHTML = `<img class="guia-colores" src="${esc(g.dataset.guia)}" alt="Todos los colores de ${esc(g.dataset.nombre)}">${(() => { const pr = buscar(g.dataset.id), ls = pr && pr.letras || [];
+        return ls.length ? `<ul class="leyenda">${ls.map((l, i) => `<li><b>${esc(l)}</b><i style="background:${hex(pr.opciones[i])}"></i>${esc(pr.opciones[i])}</li>`).join("")}</ul>` : ""; })()}
+      <p class="nota" style="margin:0">Cierra esta ventana y escoge tu color en los círculos de la tarjeta.</p>`;
+    $("elegir").showModal(); return; }
+  const b = e.target.closest("button[data-producto]"); if (!b) return;
+  const p = buscar(b.dataset.producto);
+  if (!esCombo(p)) {
+    const tarjeta = b.closest(".tarjeta"), ops = opcionesDe(p);
+    const elegido = ops.length ? tarjeta.querySelector(`input[name="op-${p.id}"]:checked`)?.value : "";
+    if (ops.length && !elegido) { tarjeta.querySelector(".mini-op .error-combo").hidden = false; return; }
+    agregar(p.id, elegido || "", "", 1); aviso(`${p.nombre}${elegido ? ` (${elegido})` : ""} agregado al carrito`); return;
+  }
+  $("titulo-elegir").textContent = "Elige color y talla";
+  $("cuerpo-elegir").innerHTML = `<div class="mini"><img src="${esc(p.fotos[0] || "")}" alt=""><div><strong>${esc(p.nombre)}</strong><span>${pesos(p.precio)}</span></div></div>${selectores(p, "ventana")}`;
+  $("elegir").showModal();
+});
+const pasoCarrusel = () => { const t = $("pista").querySelector(".tarjeta"); return t ? t.getBoundingClientRect().width + 18 : 300; };
+$("flecha-izq").addEventListener("click", () => $("pista").scrollBy({ left: -pasoCarrusel(), behavior: "smooth" }));
+$("flecha-der").addEventListener("click", () => $("pista").scrollBy({ left: pasoCarrusel(), behavior: "smooth" }));
+$("puntos").addEventListener("click", e => { const b = e.target.closest("button"); if (b) $("pista").scrollTo({ left: Number(b.dataset.i) * pasoCarrusel(), behavior: "smooth" }); });
+function marcarPunto() {
+  const i = Math.round($("pista").scrollLeft / pasoCarrusel());
+  [...$("puntos").children].forEach((b, n) => b.classList.toggle("activo", n === Math.min(i, CARRUSEL.length - 1)));
+}
+$("pista").addEventListener("scroll", () => requestAnimationFrame(marcarPunto), { passive: true });
+
+function agregar(id, color, talla, cantidad, regaloColor = "", regaloTalla = "") {
+  const l = carrito.find(x => x.id === id && x.color === color && x.talla === talla && (x.regaloColor || "") === regaloColor && (x.regaloTalla || "") === regaloTalla);
+  if (l) l.cantidad = Math.min(10, l.cantidad + cantidad); else carrito.push({ id, color, talla, cantidad, regaloColor, regaloTalla });
+  guardar();
+}
+
+/* ---------- Reloj del Black Days ---------- */
+let tReloj;
+function iniciarReloj() {
+  $("reloj-chip").classList.remove("sin-reloj");
+  const dos = n => String(n).padStart(2, "0");
+  const tic = () => {
+    const falta = FIN_REGALO - Date.now();
+    if (falta <= 0) {   // se acabó: se quita el regalo de toda la página
+      clearInterval(tReloj); REGALO.activo = false;
+      ["aviso-bf", "faq-regalo", "sello-gratis"].forEach(id => $(id).classList.add("oculto"));
+      $("reloj-chip").classList.add("sin-reloj");
+      $("pastilla-portada").textContent = "⚽ Combos deportivos";
+      document.querySelectorAll(".etiqueta-regalo, .regalo-linea").forEach(el => el.remove());
+      if ($("carrito").open && paso === "carrito") pintarCarrito();
+      return;
+    }
+    const s = Math.floor(falta / 1000), v = { d: Math.floor(s / 86400), h: Math.floor(s % 86400 / 3600), m: Math.floor(s % 3600 / 60), s: s % 60 };
+    document.querySelectorAll("[data-r]").forEach(el => el.textContent = dos(v[el.dataset.r]));
+  };
+  tic(); tReloj = setInterval(tic, 1000);
+}
+
+/* ---------- Carrito ---------- */
+function abrirCarrito() { errorPago = ""; avisoPago = ""; paso = "carrito"; pintarCarrito(); if (!$("carrito").open) $("carrito").showModal(); }
+function pintarCarrito() { if (paso === "datos" && carrito.length) pintarDatos(); else { paso = "carrito"; pintarLista(); } }
+function pintarLista() {
+  $("titulo-carrito").textContent = "Tu carrito";
+  if (!carrito.length) {
+    $("lista-carrito").innerHTML = `<li class="vacio">Tu carrito está vacío.<br><br><button class="boton" type="button" id="ir-combos">Ver el combo</button></li>`;
+    $("resumen-carrito").innerHTML = "";
+    $("ir-combos").addEventListener("click", () => { $("carrito").close(); location.hash = "combo"; });
+    return;
+  }
+  $("lista-carrito").innerHTML = carrito.map((l, i) => { const c = buscar(l.id); return `<li class="linea">
+    <img src="${esc((!esCombo(c) && l.color && c.fotos[opcionesDe(c).indexOf(l.color)]) || c.fotos[0] || "img/logo.png")}" alt="">
+    <div>
+      <h4>${esc(c.nombre)}</h4>
+      ${esCombo(c) ? `<div class="det">Color ${esc(l.color)} · Talla ${esc(l.talla)}</div>` : l.color ? `<div class="det">Color ${esc(l.color)}</div>` : ""}
+      ${esCombo(c) && REGALO.activo ? `<span class="regalito">🎁 Regalo: ${esc(l.regaloColor)} · Talla ${esc(l.regaloTalla)}</span>` : ""}
+      <div class="fila">
+        <div class="cantidad"><button type="button" data-linea="${i}" data-cant="-1" aria-label="Quitar uno">−</button><output>${l.cantidad}</output><button type="button" data-linea="${i}" data-cant="1" aria-label="Agregar uno">+</button></div>
+        <strong>${pesos(c.precio * l.cantidad)}</strong>
+      </div>
+    </div></li>`; }).join("");
+  $("resumen-carrito").innerHTML = `
+    ${REGALO.activo && !hayCombo() ? `<p class="aviso-pago">🎁 Agrega un combo y llévate ${esc(REGALO.titulo.toLowerCase())}.</p>` : ""}
+    <div class="linea-res"><span>Subtotal</span><span>${pesos(subtotal())}</span></div>
+    <div class="linea-res"><span>Envío</span><span>Se calcula con tu ciudad</span></div>
+    <div class="linea-res total"><span>Total</span><span>${pesos(subtotal())} + envío</span></div>
+    <button class="boton ancho" type="button" id="continuar">Continuar con el envío</button>`;
+  $("continuar").addEventListener("click", () => { paso = "datos"; pintarCarrito(); $("lista-carrito").scrollTop = 0; });
+}
+$("lista-carrito").addEventListener("click", e => {
+  const b = e.target.closest("button[data-linea]"); if (!b) return;
+  const l = carrito[Number(b.dataset.linea)];
+  l.cantidad += Number(b.dataset.cant);
+  if (l.cantidad < 1) carrito.splice(Number(b.dataset.linea), 1); else l.cantidad = Math.min(10, l.cantidad);
+  guardar(); pintarCarrito();
+});
+function campo(n, etiqueta, { tipo = "text", attrs = "", ayuda = "", opcional = false } = {}) {
+  const e = erroresCampo[n];
+  return `<div class="campo${e ? " con-error" : ""}"><label for="f-${n}">${etiqueta}${opcional ? " <small>(opcional)</small>" : ""}</label>
+    <input id="f-${n}" name="${n}" type="${tipo}" value="${esc(datos[n] || "")}" ${opcional ? "" : "required"} ${attrs} ${e ? `aria-invalid="true" aria-describedby="e-${n}"` : ""}>
+    ${ayuda ? `<small class="ayuda">${ayuda}</small>` : ""}${e ? `<small class="error-campo" id="e-${n}">${esc(e)}</small>` : ""}</div>`;
+}
+function pintarDatos() {
+  $("titulo-carrito").textContent = "Datos de envío";
+  $("lista-carrito").innerHTML = `<li><form id="form-datos" novalidate>
+      <button type="button" class="volver-carrito" id="volver-carrito">← Volver al carrito</button>
+      <fieldset><legend>¿Quién recibe?</legend>
+        ${campo("nombre", "Nombre completo", { attrs: 'autocomplete="name"' })}
+        ${campo("cedula", "Número de cédula", { attrs: 'inputmode="numeric" autocomplete="off" maxlength="10"' })}
+        ${campo("celular", "Celular", { tipo: "tel", attrs: 'inputmode="numeric" autocomplete="tel-national" maxlength="10"', ayuda: "Te escribimos aquí cuando despachemos." })}
+        ${campo("correo", "Correo electrónico", { tipo: "email", attrs: 'autocomplete="email"', ayuda: "Aquí te llega la confirmación del pago." })}
+      </fieldset>
+      <fieldset><legend>¿A dónde lo enviamos?</legend>
+        <div class="campo${erroresCampo.departamento ? " con-error" : ""}"><label for="f-departamento">Departamento</label>
+          <select id="f-departamento" name="departamento" required ${erroresCampo.departamento ? 'aria-invalid="true" aria-describedby="e-departamento"' : ""}>
+            <option value="">Elige tu departamento</option>
+            ${DEPARTAMENTOS.map(d => `<option ${datos.departamento === d ? "selected" : ""}>${d}</option>`).join("")}
+          </select>${erroresCampo.departamento ? `<small class="error-campo" id="e-departamento">${esc(erroresCampo.departamento)}</small>` : ""}</div>
+        ${campo("ciudad", "Ciudad o municipio", { attrs: 'autocomplete="address-level2"' })}
+        ${campo("direccion", "Dirección", { attrs: 'autocomplete="address-line1" placeholder="Ej: Calle 123 # 45-67"' })}
+        ${campo("barrio", "Barrio")}
+        ${campo("localidad", "Localidad", { opcional: true, ayuda: "Solo si vives en Bogotá. Ej: Suba, Kennedy." })}
+        ${campo("especificaciones", "Especificaciones", { opcional: true, attrs: 'placeholder="Conjunto, torre, interior, casa, apto…"' })}
+      </fieldset>
+    </form></li>`;
+  pintarResumenDatos();
+  const f = $("form-datos");
+  $("volver-carrito").addEventListener("click", () => { paso = "carrito"; errorPago = ""; pintarCarrito(); });
+  f.addEventListener("input", e => {
+    const n = e.target.name; if (!n) return;
+    datos[n] = e.target.value;
+    if (n === "departamento" && datos.departamento === "Bogotá D.C." && !datos.ciudad) { datos.ciudad = "Bogotá"; $("f-ciudad").value = "Bogotá"; }
+    if (erroresCampo[n]) { delete erroresCampo[n]; const c = e.target.closest(".campo"); c.classList.remove("con-error"); c.querySelector(".error-campo")?.remove(); e.target.removeAttribute("aria-invalid"); }
+    try { sessionStorage.setItem("sportape-datos", JSON.stringify(datos)); } catch {}
+    if (n === "departamento" || n === "ciudad") pintarResumenDatos();
+  });
+  f.addEventListener("submit", e => { e.preventDefault(); pagar(); });
+}
+function pintarResumenDatos() {
+  const envio = valorEnvio(), z = zonaDe(datos);
+  $("resumen-carrito").innerHTML = `
+    ${errorPago ? `<p class="error" role="alert">${esc(errorPago)}</p>` : ""}
+    ${!errorPago && avisoPago ? `<p class="aviso-pago" role="status">${esc(avisoPago)}</p>` : ""}
+    <div class="linea-res"><span>Subtotal</span><span>${pesos(subtotal())}</span></div>
+    <div class="linea-res"><span>Envío${z ? ` (${ENVIOS[z].nombre})` : ""}</span><span>${envio == null ? "Elige tu departamento" : pesos(envio)}</span></div>
+    <div class="linea-res total"><span>Total</span><span>${pesos(subtotal() + (envio || 0))}</span></div>
+    <button type="submit" form="form-datos" class="boton ancho" id="pagar">Ir a pagar ${envio == null ? "" : pesos(subtotal() + envio)}</button>
+    <p class="nota">Pago seguro con Wompi: Nequi, Bancolombia, tarjeta o PSE.</p>`;
+}
+function validar() {
+  const d = {}; CAMPOS.forEach(k => d[k] = String(datos[k] || "").trim());
+  const e = {};
+  if (d.nombre.split(/\s+/).length < 2) e.nombre = "Escribe tu nombre y apellido.";
+  if (!/^\d{5,10}$/.test(d.cedula.replace(/[.\s]/g, ""))) e.cedula = "Escribe tu cédula solo con números.";
+  if (!/^3\d{9}$/.test(d.celular.replace(/\s/g, ""))) e.celular = "Escribe un celular de 10 dígitos que empiece por 3.";
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.correo)) e.correo = "Escribe un correo válido, por ejemplo nombre@gmail.com.";
+  if (!d.departamento) e.departamento = "Elige tu departamento.";
+  if (!d.ciudad) e.ciudad = "Escribe tu ciudad o municipio.";
+  if (d.direccion.length < 6) e.direccion = "Escribe la dirección completa.";
+  if (!d.barrio) e.barrio = "Escribe tu barrio.";
+  d.cedula = d.cedula.replace(/[.\s]/g, ""); d.celular = d.celular.replace(/\s/g, "");
+  return { d, e };
+}
+
+/* ---------- Pago con Wompi ---------- */
+function congelarFondo() { document.documentElement.classList.add("pagando"); }
+function soltarFondo() { document.documentElement.classList.remove("pagando"); }
+function vigilarCierre(alCerrar) {
+  const antes = new Set([...document.querySelectorAll("iframe")].filter(f => f.getClientRects().length));
+  let marco = null, intentos = 0;
+  const t = setInterval(() => {
+    const caja = document.querySelector(".waybox-modal"), h = caja && parseFloat(caja.style.height);
+    if (h) { const f = caja.querySelector("iframe"); if (f && f.style.minHeight !== h + "px") f.style.minHeight = h + "px"; }
+    if (!marco) {
+      marco = [...document.querySelectorAll("iframe")].find(f => !antes.has(f) && f.getClientRects().length);
+      if (!marco && ++intentos > 120) { clearInterval(t); soltarFondo(); }
+      return;
+    }
+    if (!marco.isConnected || !marco.getClientRects().length) { clearInterval(t); setTimeout(alCerrar, 800); }
+  }, 250);
+}
+async function consultarPago(id) {
+  const r = await fetch("/api/transaccion?id=" + encodeURIComponent(id));
+  if (!r.ok) throw new Error("sin respuesta");
+  return r.json();
+}
+async function pagar() {
+  const { d, e } = validar();
+  erroresCampo = e;
+  if (Object.keys(e).length) { pintarDatos(); $("f-" + Object.keys(e)[0])?.focus(); return; }
+  errorPago = ""; avisoPago = "";
+  const b = $("pagar"); b.disabled = true; b.textContent = "Preparando el pago…";
+  try {
+    const items = carrito.map(({ id, color, talla, cantidad, regaloColor, regaloTalla }) => ({ id, color, talla, cantidad, regaloColor, regaloTalla }));
+    const r = await fetch("/api/firmar", { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ items, envio: { departamento: d.departamento, ciudad: d.ciudad }, cliente: d }) });
+    const res = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(res.error || "No pudimos preparar el pago. Intenta de nuevo en un momento.");
+    if (typeof WidgetCheckout !== "function") throw new Error("No se pudo cargar la ventana de pago. Revisa tu conexión e intenta de nuevo.");
+    const direccion = [d.direccion, d.barrio && `Barrio ${d.barrio}`, d.localidad && `Localidad ${d.localidad}`, d.especificaciones].filter(Boolean).join(" | ");
+    const widget = new WidgetCheckout({
+      currency: "COP", amountInCents: res.montoEnCentavos, reference: res.referencia, publicKey: res.llavePublica,
+      signature: { integrity: res.firma }, redirectUrl: location.origin + location.pathname + "?gracias=1",
+      customerData: { email: d.correo, fullName: d.nombre, phoneNumber: d.celular, phoneNumberPrefix: "+57", legalId: d.cedula, legalIdType: "CC" },
+      shippingAddress: { addressLine1: direccion.slice(0, 250), city: d.ciudad, region: d.departamento, country: "CO", phoneNumber: d.celular, name: d.nombre }
+    });
+    $("carrito").close();
+    let listo = false;
+    const volverAlPago = msg => {
+      soltarFondo();
+      if (listo) return; listo = true;
+      paso = "datos"; errorPago = ""; avisoPago = msg; pintarCarrito();
+      if (!$("carrito").open) $("carrito").showModal();
+    };
+    vigilarCierre(() => volverAlPago("¿Quieres pagar con otro medio? Toca «Ir a pagar» y elige el que prefieras: Nequi, Bancolombia, tarjeta o PSE."));
+    congelarFondo();
+    widget.open(rr => {
+      const t = rr && rr.transaction;
+      if (t && t.status === "APPROVED" && t.id) consultarPago(t.id).catch(() => {}); // la tienda confirma con Wompi y anota el pedido
+      if (t && (t.status === "APPROVED" || t.status === "PENDING")) { listo = true; soltarFondo(); if ($("carrito").open) $("carrito").close(); carrito = []; guardar(); mostrarGracias(); }
+      else if (t) volverAlPago("El pago no se completó. Puedes intentarlo de nuevo o elegir otro medio de pago.");
+    });
+  } catch (x) {
+    errorPago = x.message; pintarCarrito();
+  }
+}
+
+/* ---------- Gracias ---------- */
+function mostrarGracias() {
+  document.querySelector(".s1").classList.add("oculto");
+  ["combo", "complementa", "como-comprar"].forEach(id => $(id).classList.add("oculto"));
+  $("vista-gracias").classList.remove("oculto");
+  document.title = "Gracias por tu compra · SporTape"; scrollTo(0, 0);
+}
+function ocultarGracias() {
+  document.querySelector(".s1").classList.remove("oculto");
+  ["combo", "complementa", "como-comprar"].forEach(id => $(id).classList.remove("oculto"));
+  $("vista-gracias").classList.add("oculto");
+  document.title = "SporTape · Combos deportivos";
+}
+async function volvioDeWompi(tx) {
+  mostrarGracias();
+  if (!tx) { carrito = []; guardar(); return; }
+  try {
+    const t = await consultarPago(tx);
+    if (t.estado === "APPROVED" || t.estado === "PENDING") { carrito = []; guardar(); return; }
+    try { history.replaceState({}, "", location.pathname); } catch {}
+    ocultarGracias();
+    paso = "datos"; avisoPago = "Tu pago no se completó. Puedes intentarlo de nuevo o elegir otro medio de pago.";
+    pintarCarrito(); $("carrito").showModal();
+  } catch { carrito = []; guardar(); }
+}
+
+/* ---------- Inicio ---------- */
+$("abrir-carrito").addEventListener("click", abrirCarrito);
+$("barra-carrito").addEventListener("click", abrirCarrito);
+$("cerrar-carrito").addEventListener("click", () => $("carrito").close());
+$("cerrar-elegir").addEventListener("click", () => $("elegir").close());
+["carrito", "elegir"].forEach(id => $(id).addEventListener("click", e => { if (e.target === $(id)) $(id).close(); }));
+$("estrella").addEventListener("click", manejarSelector);
+$("cuerpo-elegir").addEventListener("click", manejarSelector);
+pintarPagina();
+pintarCuenta();
+const params = new URLSearchParams(location.search);
+if (params.get("gracias")) volvioDeWompi(params.get("id"));
+</script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+/**
+ * SPORTAPE · PEDIDOS
+ * Pega este código en la hoja "pedidos sportape": Extensiones → Apps Script.
+ * Cada compra APROBADA en Wompi queda como una fila en la pestaña "Pedidos",
+ * se descuenta el inventario en la hoja de productos y te llega un correo.
+ * (Los intentos de compra sin pagar se guardan aparte, en la pestaña oculta "Intentos".)
+ */
+const HOJA_PRODUCTOS = "1Nyp_oK5JnXrbSOh9hOMvY9QQv1-rgnZciGO2vh-j-pw"; // hoja "pagina web SporTape"
+const ENCABEZADOS = ["Fecha", "N° pedido", "Estado", "Nombre", "Cédula", "Celular", "Correo",
+  "Departamento", "Ciudad", "Dirección", "Barrio", "Localidad", "Especificaciones",
+  "Productos", "Unidades", "Envío", "Total pagado", "Medio de pago", "Transacción Wompi", "Guía", "Notas"];
+const ESTADOS = ["Por despachar", "Despachado", "Entregado", "Cancelado"];
+
+function doPost(e) {
+  const candado = LockService.getScriptLock();
+  candado.waitLock(25000);
+  try {
+    const d = JSON.parse(e.postData.contents);
+    if (d.accion === "intento") { guardarIntento(d); return salida({ ok: true }); }
+    if (d.accion === "pago") { registrarPedido(d); return salida({ ok: true }); }
+    return salida({ ok: false, error: "Acción desconocida" });
+  } catch (err) {
+    return salida({ ok: false, error: String(err) });
+  } finally {
+    candado.releaseLock();
+  }
+}
+
+function salida(obj) {
+  return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);
+}
+
+/* ---------- Pestañas ---------- */
+function hojaPedidos() {
+  const libro = SpreadsheetApp.getActiveSpreadsheet();
+  let h = libro.getSheetByName("Pedidos");
+  if (!h) { h = libro.getSheets()[0]; h.setName("Pedidos"); }
+  if (h.getRange(1, 1).getValue() !== "Fecha" || h.getLastColumn() < ENCABEZADOS.length) {
+    h.getRange(1, 1, 1, ENCABEZADOS.length).setValues([ENCABEZADOS])
+      .setFontWeight("bold").setFontColor("#FFFFFF").setBackground("#0B0B10");
+    h.setFrozenRows(1);
+  }
+  return h;
+}
+
+function hojaIntentos() {
+  const libro = SpreadsheetApp.getActiveSpreadsheet();
+  let h = libro.getSheetByName("Intentos");
+  if (!h) {
+    h = libro.insertSheet("Intentos");
+    h.appendRow(["Fecha", "N° pedido", "Total", "Datos"]);
+    h.setFrozenRows(1);
+    h.hideSheet();
+  }
+  return h;
+}
+
+/* ---------- Intento de compra (aún sin pagar) ---------- */
+function guardarIntento(d) {
+  const h = hojaIntentos();
+  h.appendRow([new Date(), d.referencia, d.total, JSON.stringify(d)]);
+  // Se guardan solo los últimos intentos para que la hoja no crezca sin fin
+  if (h.getLastRow() > 3000) h.deleteRows(2, 1000);
+}
+
+/* ---------- Pago aprobado: pasa a "Pedidos" ---------- */
+function registrarPedido(p) {
+  if (p.estado !== "APPROVED") return;
+  const pedidos = hojaPedidos();
+  // Si ya está anotado, no se repite (Wompi y la página pueden avisar los dos)
+  if (pedidos.getRange("B:B").createTextFinder(p.referencia).matchEntireCell(true).findNext()) return;
+
+  let d = null;
+  const encontrado = hojaIntentos().getRange("B:B").createTextFinder(p.referencia).matchEntireCell(true).findAll().pop(); // el más reciente
+  if (encontrado) { try { d = JSON.parse(hojaIntentos().getRange(encontrado.getRow(), 4).getValue()); } catch (e) {} }
+
+  const c = (d && d.cliente) || {};
+  const items = (d && d.items) || desdeReferencia(p.referencia);
+  const productos = items.map(i => `${i.cantidad} x ${i.nombre || i.id}`).join("\n");
+  const unidades = items.reduce((a, i) => a + Number(i.cantidad || 0), 0);
+  const notas = d ? (d.regalo ? "🎁 Incluir regalo: " + d.regalo + " (color y talla en Productos)." : "") : "Faltan los datos de envío: revísalos en el panel de Wompi con la transacción.";
+
+  pedidos.appendRow([
+    new Date(), p.referencia, ESTADOS[0], c.nombre || "", "'" + (c.cedula || ""), "'" + (c.celular || ""), c.correo || "",
+    c.departamento || "", c.ciudad || "", c.direccion || "", c.barrio || "", c.localidad || "", c.especificaciones || "",
+    productos, unidades, d ? d.envio : "", p.valor, nombreMedio(p.medio), p.transaccion, "", notas
+  ]);
+  const fila = pedidos.getLastRow();
+  pedidos.getRange(fila, 16, 1, 2).setNumberFormat("$#,##0");
+  pedidos.getRange(fila, 3).setDataValidation(
+    SpreadsheetApp.newDataValidation().requireValueInList(ESTADOS, true).setAllowInvalid(false).build());
+  pedidos.getRange(fila, 1, 1, ENCABEZADOS.length).setVerticalAlignment("top");
+
+  descontarInventario(items, pedidos.getRange(fila, 21));
+  avisar(p, c, productos, d);
+}
+
+// Si no se encontró el intento, saca los juegos de la referencia: STP-xxxx-combo-prox1_combo-balonx2-BOG
+function desdeReferencia(ref) {
+  return String(ref).replace(/^STP-[^-]+-/, "").replace(/-(BOG|NAL)$/, "").split("_")
+    .map(t => t.match(/^(.+)x(\d+)$/)).filter(Boolean).map(m => ({ id: m[1], cantidad: Number(m[2]) }));
+}
+
+function nombreMedio(m) {
+  return ({ CARD: "Tarjeta", NEQUI: "Nequi", PSE: "PSE", BANCOLOMBIA_TRANSFER: "Botón Bancolombia",
+            BANCOLOMBIA_QR: "QR Bancolombia", DAVIPLATA: "Daviplata" })[m] || m || "";
+}
+
+/* ---------- Inventario en la hoja "pagina web SporTape" ---------- */
+function descontarInventario(items, celdaNotas) {
+  try {
+    const hoja = SpreadsheetApp.openById(HOJA_PRODUCTOS).getSheets()[0];
+    const datos = hoja.getDataRange().getValues();
+    const norm = s => String(s).normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().trim();
+    const enc = datos[0].map(norm);
+    const colEnlace = enc.findIndex(h => h.startsWith("enlace"));
+    const colInv = enc.findIndex(h => h.startsWith("inventario"));
+    if (colEnlace < 0 || colInv < 0) return;
+    const sinStock = [];
+    items.forEach(i => {
+      const f = datos.findIndex((r, n) => n > 0 && norm(r[colEnlace]) === norm(i.id));
+      if (f < 0 || datos[f][colInv] === "" || isNaN(Number(datos[f][colInv]))) return; // sin dato de inventario: no se toca
+      const nuevo = Math.max(0, Number(datos[f][colInv]) - Number(i.cantidad || 0));
+      hoja.getRange(f + 1, colInv + 1).setValue(nuevo);
+      if (nuevo === 0) sinStock.push(i.nombre || i.id);
+    });
+    if (sinStock.length) celdaNotas.setValue((celdaNotas.getValue() ? celdaNotas.getValue() + " " : "") + "Quedó agotado: " + sinStock.join(", ") + ".");
+  } catch (e) {
+    celdaNotas.setValue("No se pudo descontar el inventario: " + e);
+  }
+}
+
+/* ---------- Correo de aviso ---------- */
+function avisar(p, c, productos, d) {
+  const yo = Session.getEffectiveUser().getEmail();
+  if (!yo) return;
+  const pesos = n => "$" + Number(n || 0).toLocaleString("es-CO");
+  MailApp.sendEmail({
+    to: yo,
+    subject: "⚽ Nuevo pedido SporTape · " + (c.nombre || p.referencia) + " · " + pesos(p.valor),
+    body: "¡Tienes un pedido nuevo para despachar!\n\n" +
+      "N° pedido: " + p.referencia + "\n" +
+      "Total pagado: " + pesos(p.valor) + " (" + nombreMedio(p.medio) + ")\n\n" +
+      "PRODUCTOS\n" + productos + "\n" + (d && d.regalo ? "🎁 Regalo: " + d.regalo + "\n" : "") + "\n" +
+      "ENVÍO\n" +
+      (c.nombre || "") + " · C.C. " + (c.cedula || "") + "\n" +
+      "Cel: " + (c.celular || "") + " · " + (c.correo || "") + "\n" +
+      (c.direccion || "") + " · Barrio " + (c.barrio || "") + (c.localidad ? " · " + c.localidad : "") + "\n" +
+      (c.ciudad || "") + ", " + (c.departamento || "") + "\n" +
+      (c.especificaciones ? "Indicaciones: " + c.especificaciones + "\n" : "") +
+      (d ? "" : "\n⚠️ No llegaron los datos de envío: búscalos en Wompi con la transacción " + p.transaccion + "\n") +
+      "\nHoja de pedidos: " + SpreadsheetApp.getActiveSpreadsheet().getUrl()
+  });
+}
