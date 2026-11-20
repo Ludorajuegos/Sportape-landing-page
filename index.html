@@ -179,7 +179,10 @@ dialog.elegir:has(.guia-colores){width:min(760px, calc(100vw - 24px))}
 .muestra-op input:focus-visible + label{outline:3px solid var(--turquesa); outline-offset:3px}
 .sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
 .mini-op .chip label{padding:5px 11px 5px 6px; font-size:14px}
-.mini-op .error-combo{font-size:13.5px; margin-top:6px}
+.aviso-color{margin:2px 0 4px; background:#FDECEC; color:#B71C1C; border-radius:10px; padding:7px 10px; font-size:14px; font-weight:700; text-align:center}
+.muestras.sacudir{animation:sacudir .45s}
+@keyframes sacudir{20%,60%{transform:translateX(-5px)} 40%,80%{transform:translateX(5px)}}
+@media (prefers-reduced-motion:reduce){ .muestras.sacudir{animation:none} }
 .tarjeta .img .etiqueta-regalo{top:10px; left:10px; font-size:12px; padding:5px 10px}
 .tarjeta .cuerpo{padding:16px 16px 18px; display:flex; flex-direction:column; gap:6px; flex:1}
 .tarjeta h3{font-size:20px; letter-spacing:-.2px}
@@ -625,9 +628,9 @@ function pintarCarrusel() {
         ${texto ? `<p>${esc(texto)}</p>` : ""}
         ${opcionesDe(p).length ? `<fieldset class="opcion mini-op"><legend>Color: <span class="elegido">elige uno</span> <button type="button" class="quitar-color" hidden>✕ quitar</button></legend><div class="muestras">${opcionesDe(p).map((o, i) =>
           `<span class="muestra-op"><input type="radio" name="op-${esc(p.id)}" id="op-${esc(p.id)}-${i}" value="${esc(o)}" data-foto="${esc(fotoDe(p, o, i))}"><label for="op-${esc(p.id)}-${i}" title="${esc(o)}" style="background:${hex(o)}"><span class="sr">${esc(o)}</span></label></span>`).join("")}</div>
-          <p class="error-combo" role="alert" hidden>Elige el color.</p>
           ${p.guia ? `<button type="button" class="ver-colores" data-guia="${esc(p.guia)}" data-id="${esc(p.id)}" data-nombre="${esc(p.nombre)}">🎨 Ver todos los colores</button>` : ""}</fieldset>` : ""}
         <div class="valor">${pesos(p.precio)}</div>
+        ${opcionesDe(p).length ? `<p class="aviso-color" role="alert" hidden>👆 Selecciona un color para agregarlo al carrito</p>` : ""}
         <button type="button" class="boton turquesa" data-producto="${esc(p.id)}" ${agotado ? "disabled" : ""}>${agotado ? "Agotado" : "Agregar al carrito"}</button>
       </div></article>`;
   }).join("");
@@ -642,7 +645,7 @@ $("pista").addEventListener("change", e => {   // al elegir color cambia la foto
   if (r.dataset.foto) tarjeta.querySelector(".img img").src = r.dataset.foto;
   tarjeta.querySelector(".mini-op .elegido").textContent = r.value;
   tarjeta.querySelector(".quitar-color").hidden = false;
-  tarjeta.querySelector(".mini-op .error-combo").hidden = true;
+  tarjeta.querySelector(".aviso-color").hidden = true;
 });
 // Volver a la foto principal cuando el cliente quita el color (tocando otra vez el mismo círculo o "✕ quitar")
 function quitarColor(tarjeta) {
@@ -671,7 +674,11 @@ $("pista").addEventListener("click", e => {
   if (!esCombo(p)) {
     const tarjeta = b.closest(".tarjeta"), ops = opcionesDe(p);
     const elegido = ops.length ? tarjeta.querySelector(`input[name="op-${p.id}"]:checked`)?.value : "";
-    if (ops.length && !elegido) { tarjeta.querySelector(".mini-op .error-combo").hidden = false; return; }
+    if (ops.length && !elegido) {
+      tarjeta.querySelector(".aviso-color").hidden = false;
+      const m = tarjeta.querySelector(".muestras"); m.classList.remove("sacudir"); void m.offsetWidth; m.classList.add("sacudir");
+      aviso("Selecciona un color primero"); return;
+    }
     agregar(p.id, elegido || "", "", 1); aviso(`${p.nombre}${elegido ? ` (${elegido})` : ""} agregado al carrito`); return;
   }
   $("titulo-elegir").textContent = "Elige color y talla";
