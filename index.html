@@ -97,6 +97,12 @@ header.barra{position:sticky; top:0; z-index:50; background:rgba(255,247,238,.92
 .ilustracion .sello-gratis em{display:inline-block; font-style:normal; font-weight:800; font-size:14px; margin-top:6px; background:#FFD60A; color:var(--azul); border-radius:999px; padding:3px 12px}
 @media (min-width:900px){ .ilustracion .sello-gratis{padding:12px 28px 14px} .ilustracion .sello-gratis small{font-size:16px} .ilustracion .sello-gratis strong{font-size:26px} }
 @media (max-width:420px){ .ilustracion .sello-gratis strong{font-size:18px} .ilustracion .sello-gratis{padding:9px 16px 11px} }
+/* Etiquetas fuera de la imagen para no tapar el producto */
+.ilustracion{margin-top:64px !important; margin-bottom:120px !important}
+.ilustracion .sello{top:-62px !important; left:-6px !important}
+.ilustracion .sello-gratis{bottom:-104px !important; transform:translateX(-50%) rotate(-2deg) !important}
+@media (min-width:900px){ .ilustracion{margin-top:40px !important; margin-bottom:110px !important}
+  .ilustracion .sello{top:-30px !important; left:-120px !important} .ilustracion .sello-gratis{bottom:-98px !important} }
 @keyframes latido{0%,100%{transform:rotate(-8deg) scale(1)} 50%{transform:rotate(-8deg) scale(1.06)}}
 @media (prefers-reduced-motion:reduce){ .ilustracion .sello{animation:none} }
 
@@ -347,7 +353,7 @@ html.pagando .waybox-modal{position:fixed !important; top:5px !important; max-he
       </div>
       <div class="ilustracion">
         <div class="mancha" aria-hidden="true"></div>
-        <img src="img/portada-combo.jpg" alt="Combo Deportivo: canilleras, medias, perneras y cinta cohesiva, en naranja, verde neón, blanco, amarillo y negro" width="768" height="1376">
+        <img src="img/portada-combo.jpg" alt="Combo Deportivo: canilleras, medias, perneras y cinta cohesiva, en naranja, verde neón, blanco, amarillo y negro" width="1080" height="1350">
         <div class="sello"><small>POR SOLO</small><strong id="desde">$50.000</strong></div>
         <div class="sello-gratis oculto" id="sello-gratis"><small>🎁 Y llévate GRATIS, adicional</small><strong>1 par extra de perneras<br>+ 1 par extra de canilleras</strong><em>¡En total 2 pares de cada uno!</em></div>
       </div>
