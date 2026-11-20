@@ -7,8 +7,16 @@
 <meta name="description" content="Combos deportivos con canilleras, medias antideslizantes, medias recortadas y cinta cohesiva. Elige color y talla, paga seguro en línea y recíbelo en toda Colombia.">
 <meta name="theme-color" content="#FFF7EE">
 <meta property="og:title" content="SporTape · Combos deportivos">
-<meta property="og:description" content="Equípate completo desde $50.000. Envío a toda Colombia.">
-<meta property="og:image" content="img/portada-combo.jpg">
+<meta property="og:description" content="Combo Deportivo por $50.000 + regalo de perneras y canilleras. Envíos a toda Colombia, pago seguro con Wompi.">
+<meta property="og:image" content="https://sportape.com.co/img/portada-combo.jpg">
+<meta property="og:image:alt" content="Combo Deportivo SporTape por $50.000">
+<meta property="og:url" content="https://sportape.com.co/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SporTape">
+<meta property="og:locale" content="es_CO">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="facebook-domain-verification" content="20bwji6wj66n1h6e0egsdcpp8ys9mv" />
+<link rel="canonical" href="https://sportape.com.co/">
 <link rel="icon" href="favicon.png" sizes="64x64" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -86,6 +94,7 @@ header.barra{position:sticky; top:0; z-index:50; background:rgba(255,247,238,.92
 .ilustracion .sello-gratis{position:absolute; left:50%; bottom:-34px; z-index:2; transform:translateX(-50%) rotate(-3deg); background:var(--turquesa); color:#fff; border:4px solid #fff; border-radius:20px; padding:10px 22px 12px; text-align:center; line-height:1.15; box-shadow:0 16px 36px rgba(14,138,147,.4); white-space:nowrap}
 .ilustracion .sello-gratis small{display:block; font-weight:800; font-size:14px; letter-spacing:1.5px; text-transform:uppercase; color:#FFF6B0}
 .ilustracion .sello-gratis strong{display:block; font-family:"Bricolage Grotesque"; font-weight:800; font-size:21px; margin-top:3px}
+.ilustracion .sello-gratis em{display:inline-block; font-style:normal; font-weight:800; font-size:14px; margin-top:6px; background:#FFD60A; color:var(--azul); border-radius:999px; padding:3px 12px}
 @media (min-width:900px){ .ilustracion .sello-gratis{padding:12px 28px 14px} .ilustracion .sello-gratis small{font-size:16px} .ilustracion .sello-gratis strong{font-size:26px} }
 @media (max-width:420px){ .ilustracion .sello-gratis strong{font-size:18px} .ilustracion .sello-gratis{padding:9px 16px 11px} }
 @keyframes latido{0%,100%{transform:rotate(-8deg) scale(1)} 50%{transform:rotate(-8deg) scale(1.06)}}
@@ -101,6 +110,7 @@ header.barra{position:sticky; top:0; z-index:50; background:rgba(255,247,238,.92
 .aviso-bf img{width:96px; height:96px; object-fit:cover; border-radius:16px; background:#fff; border:3px solid #fff}
 .aviso-bf h3{font-size:clamp(22px,3vw,30px)}
 .aviso-bf p{margin:4px 0 0; opacity:.95}
+.aviso-bf .total-regalo{display:inline-block; margin-top:10px; background:#fff; color:var(--magenta-osc); border-radius:12px; padding:6px 12px; font-weight:700; opacity:1}
 .aviso-bf .reloj-grande{display:flex; gap:6px}
 .aviso-bf .reloj-grande div{background:rgba(20,34,61,.88); border-radius:12px; min-width:58px; padding:6px 4px; text-align:center}
 .aviso-bf .reloj-grande b{display:block; font-family:"Bricolage Grotesque"; font-size:26px; line-height:1.1; font-variant-numeric:tabular-nums}
@@ -138,6 +148,7 @@ header.barra{position:sticky; top:0; z-index:50; background:rgba(255,247,238,.92
 .cantidad output{min-width:30px; text-align:center; font-weight:800}
 .elige-regalo{display:grid; gap:14px; background:#FFF0F5; border:1px dashed var(--magenta); border-radius:16px; padding:14px}
 .elige-regalo .titulo-regalo{margin:0; font-weight:800; color:var(--magenta-osc)}
+.elige-regalo .nota-regalo{margin:-6px 0 0; font-size:14.5px; color:var(--texto)}
 .error-combo{color:#C62828; font-weight:700; font-size:15px; margin:0}
 
 /* ===== SECCIÓN 3 · Carrusel ===== */
@@ -158,6 +169,7 @@ dialog.elegir:has(.guia-colores){width:min(760px, calc(100vw - 24px))}
 .leyenda b{width:22px; text-align:center; color:var(--magenta)}
 .leyenda i{width:18px; height:18px; border-radius:50%; border:1px solid rgba(20,34,61,.25); flex:none}
 .guia-colores{width:100%; height:auto; border-radius:12px; border:1px solid var(--linea)}
+.quitar-color{background:none; border:0; padding:0 0 0 6px; color:var(--magenta); font-weight:700; font-size:13px; cursor:pointer}
 .mini-op .elegido{color:var(--suave); font-weight:600}
 .muestras{display:flex; flex-wrap:wrap; gap:7px}
 .muestra-op{position:relative}
@@ -284,7 +296,17 @@ dialog.elegir{border-radius:22px; width:min(440px, calc(100vw - 24px)); max-heig
 /* Ventana de Wompi en celular: fija y con desplazamiento propio */
 html.pagando, html.pagando body{overflow:hidden; overscroll-behavior:none}
 html.pagando .waybox-modal{position:fixed !important; top:5px !important; max-height:calc(100dvh - 10px) !important; overflow-y:auto !important; -webkit-overflow-scrolling:touch; overscroll-behavior:contain}
-@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} .boton,.toast{transition:none} }
+/* Reflejo de luz que pasa (botón "Quiero mi combo" y franja de Black Days) */
+.boton-brillo{font-size:20px; padding:20px 44px; position:relative; overflow:hidden; box-shadow:0 12px 30px rgba(29,175,184,.4)}
+@media (max-width:600px){ .boton-brillo{display:flex; width:100%} }
+.aviso-bf.brillo{position:relative; overflow:hidden}
+.boton-brillo::after,.aviso-bf.brillo::after{content:""; position:absolute; top:-20%; bottom:-20%; left:-70%; width:50%; pointer-events:none;
+  background:linear-gradient(105deg, transparent 0%, rgba(255,255,255,.25) 30%, rgba(255,255,255,.85) 50%, rgba(255,255,255,.25) 70%, transparent 100%);
+  transform:skewX(-20deg); animation:reflejo 3s ease-in-out infinite}
+.aviso-bf.brillo::after{width:30%; animation-duration:4s}
+.aviso-bf.brillo > *{position:relative; z-index:1}
+@keyframes reflejo{0%{left:-70%} 55%,100%{left:140%}}
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} .boton,.toast{transition:none} .boton-brillo::after,.aviso-bf.brillo::after{animation:none; display:none} }
 </style>
 <script src="https://checkout.wompi.co/widget.js"></script>
 </head>
@@ -324,7 +346,7 @@ html.pagando .waybox-modal{position:fixed !important; top:5px !important; max-he
         <div class="mancha" aria-hidden="true"></div>
         <img src="img/portada-combo.jpg" alt="Combo Deportivo: canilleras, medias, perneras y cinta cohesiva, en naranja, verde neón, blanco, amarillo y negro" width="768" height="1376">
         <div class="sello"><small>POR SOLO</small><strong id="desde">$50.000</strong></div>
-        <div class="sello-gratis oculto" id="sello-gratis"><small>🎁 Y llévate GRATIS</small><strong>un par de perneras<br>+ un par de canilleras</strong></div>
+        <div class="sello-gratis oculto" id="sello-gratis"><small>🎁 Y llévate GRATIS, adicional</small><strong>1 par extra de perneras<br>+ 1 par extra de canilleras</strong><em>¡En total 2 pares de cada uno!</em></div>
       </div>
     </section>
   </div>
@@ -332,11 +354,11 @@ html.pagando .waybox-modal{position:fixed !important; top:5px !important; max-he
     <!-- ============ SECCIÓN 2 · Combo estrella + Black Days ============ -->
     <section class="s2" id="combo" aria-labelledby="titulo-combo">
       <div class="contenedor">
-        <div class="aviso-bf oculto" id="aviso-bf">
+        <div class="aviso-bf brillo oculto" id="aviso-bf">
           <img src="img/regalo-canilleras-perneras.jpg" alt="Canilleras y perneras de regalo" width="800" height="800" loading="lazy">
           <div>
             <h3>¡Aprovecha los Black Days!</h3>
-            <p id="texto-regalo">Con la compra de cualquier combo te llevas unas perneras y unas canilleras de regalo.</p>
+            <p id="texto-regalo">En Black Days, con la compra de cualquier combo te regalamos un par ADICIONAL de perneras y un par ADICIONAL de canilleras.</p>
           </div>
           <div class="reloj-grande oculto" id="reloj-grande" aria-hidden="true">
             <div><b data-r="d">00</b><small>días</small></div><div><b data-r="h">00</b><small>horas</small></div><div><b data-r="m">00</b><small>min</small></div><div><b data-r="s">00</b><small>seg</small></div>
@@ -378,7 +400,7 @@ html.pagando .waybox-modal{position:fixed !important; top:5px !important; max-he
               <li><div><b>Paga en línea con Wompi</b><span>Apenas se apruebe el pago preparamos tu pedido y te llega en 3 a 4 días hábiles.</span></div></li>
             </ol>
             <div class="medios" aria-label="Medios de pago"><span>Nequi</span><span>Botón Bancolombia</span><span>Tarjeta débito o crédito</span><span>PSE</span></div>
-            <a class="boton turquesa" href="#combo" style="margin-top:22px">Quiero mi combo</a>
+            <a class="boton turquesa boton-brillo" href="#combo" style="margin-top:22px">⚽ Quiero mi combo</a>
           </div>
         </div>
 
@@ -433,6 +455,17 @@ html.pagando .waybox-modal{position:fixed !important; top:5px !important; max-he
 </dialog>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+<script>
+/* ===== Pixel de Meta =====  Pega aquí el ID de tu pixel de SporTape (solo números). Vacío = pixel apagado. */
+const META_PIXEL_ID = "4501800923316808";
+if (META_PIXEL_ID) {
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;
+  s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', META_PIXEL_ID); fbq('track', 'PageView');
+}
+function pixel(evento, datos, opciones) { try { if (META_PIXEL_ID && window.fbq) fbq('track', evento, datos || {}, opciones || {}); } catch {} }
+</script>
 <script src="productos.js"></script>
 <script src="/api/productos.js"></script>
 <script>
@@ -471,6 +504,8 @@ const colorActivo = n => COLORES.some(c => c.nombre === n && c.activo);
 const COMBOS = TODOS.filter(esCombo);
 const ESTRELLA = buscar("combo-deportivo") || COMBOS.reduce((a, c) => c.precio < a.precio ? c : a, COMBOS[0]);
 const CARRUSEL = TODOS.filter(p => p.tipo === "producto");   // solo productos al detal
+// Foto según el color: primero "fotosColor" (por nombre), luego la foto N de la opción N, luego la foto general
+const fotoDe = (p, color, i) => (p.fotosColor && p.fotosColor[color]) || (p.fotos.length > 1 && p.fotos[i]) || p.fotos[0] || "img/logo.png";
 const opcionesDe = p => (!esCombo(p) && Array.isArray(p.opciones)) ? p.opciones : [];
 
 /* ---------- Estado ---------- */
@@ -478,7 +513,7 @@ let carrito = [];   // [{ id, color, talla, cantidad }]
 try { carrito = JSON.parse(localStorage.getItem("sportape-carrito") || "[]") || []; } catch { carrito = []; }
 const tallaValida = t => TALLAS.some(x => x.nombre === t);
 carrito = carrito.filter(l => { const p = buscar(l.id); return p && l.cantidad > 0 && (!esCombo(p) ? (!(p.opciones || []).length || p.opciones.includes(l.color)) : (colorActivo(l.color) && tallaValida(l.talla)
-  && (!REGALO.activo || (colorActivo(l.regaloColor) && tallaValida(l.regaloTalla))))); });
+  && (!REGALO.activo || (COLORES.some(c => c.nombre === l.regaloColor) && tallaValida(l.regaloTalla))))); });
 let datos = {};
 try { datos = JSON.parse(sessionStorage.getItem("sportape-datos") || "{}") || {}; } catch { datos = {}; }
 let paso = "carrito", errorPago = "", avisoPago = "", erroresCampo = {};
@@ -499,8 +534,9 @@ function pintarCuenta() {
 }
 
 /* ---------- Selectores de color, talla y cantidad ---------- */
-function chips(nombre, k) {
-  return COLORES.map((co, i) => `<span class="chip"><input type="radio" name="${nombre}" id="${nombre}-${k}-${i}" value="${esc(co.nombre)}" ${co.activo ? "" : "disabled"}><label for="${nombre}-${k}-${i}"><i class="muestra" style="background:${hex(co.nombre)}"></i>${esc(co.nombre)}${co.activo ? "" : " (agotado)"}</label></span>`).join("");
+function chips(nombre, k, todos = false) {   // todos: el regalo admite también los colores agotados en el combo (rojo, azul)
+  return COLORES.map((co, i) => { const ok = todos || co.activo;
+    return `<span class="chip"><input type="radio" name="${nombre}" id="${nombre}-${k}-${i}" value="${esc(co.nombre)}" ${ok ? "" : "disabled"}><label for="${nombre}-${k}-${i}"><i class="muestra" style="background:${hex(co.nombre)}"></i>${esc(co.nombre)}${ok ? "" : " (agotado)"}</label></span>`; }).join("");
 }
 function tallasChips(nombre, k) {
   return TALLAS.map((t, i) => `<span class="chip talla"><input type="radio" name="${nombre}" id="${nombre}-${k}-${i}" value="${esc(t.nombre)}"><label for="${nombre}-${k}-${i}">${esc(t.nombre)}</label></span>`).join("");
@@ -511,8 +547,9 @@ function selectores(c, pre) {
     <fieldset class="opcion"><legend>Color</legend><div class="chips">${colores}</div></fieldset>
     <fieldset class="opcion"><legend>Talla <span>(${esc(TALLAS.map(t => `${t.nombre}: ${t.detalle}`).join(" · "))})</span></legend><div class="chips">${tallas}</div></fieldset>
     ${REGALO.activo ? `<div class="elige-regalo">
-      <p class="titulo-regalo">🎁 Elige el color y la talla de tu pernera y canillera de regalo</p>
-      <fieldset class="opcion"><legend>Color del regalo</legend><div class="chips">${chips(pre + "-rcolor", "rco")}</div></fieldset>
+      <p class="titulo-regalo">🎁 Tu regalo ADICIONAL: elige el color y la talla de tu par extra de perneras y canilleras</p>
+      <p class="nota-regalo">Además de las que trae el combo: en total te llevas <b>2 pares de perneras</b> y <b>2 pares de canilleras</b>.</p>
+      <fieldset class="opcion"><legend>Color del regalo</legend><div class="chips">${chips(pre + "-rcolor", "rco", true)}</div></fieldset>
       <fieldset class="opcion"><legend>Talla del regalo</legend><div class="chips">${tallasChips(pre + "-rtalla", "rta")}</div></fieldset>
     </div>` : ""}
     <p class="error-combo" role="alert" hidden></p>
@@ -558,7 +595,7 @@ function pintarPagina() {
     $("texto-regalo").textContent = REGALO.detalle;
     $("faq-regalo").classList.remove("oculto");
     const fechaTxt = FIN_REGALO ? new Date(FIN_REGALO).toLocaleDateString("es-CO", { day: "numeric", month: "long", timeZone: "America/Bogota" }) : "";
-    $("faq-regalo-texto").textContent = `${REGALO.detalle} Aplica para los combos: al elegir tu combo escoges también el color y la talla del regalo, y va en el mismo paquete.${fechaTxt ? ` Válido hasta el ${fechaTxt}.` : ""}`;
+    $("faq-regalo-texto").textContent = `${REGALO.detalle} Es adicional a lo que trae el combo: en total te llevas 2 pares de perneras y 2 pares de canilleras. Al elegir tu combo escoges el color y la talla del regalo, y va en el mismo paquete.${fechaTxt ? ` Válido hasta el ${fechaTxt}.` : ""}`;
     if (FIN_REGALO) { $("reloj-grande").classList.remove("oculto"); iniciarReloj(); }
   } else $("pastilla-portada").textContent = "⚽ Combos deportivos";
   pintarEstrella();
@@ -586,25 +623,43 @@ function pintarCarrusel() {
       <div class="cuerpo">
         <h3>${esc(p.nombre)}</h3>
         ${texto ? `<p>${esc(texto)}</p>` : ""}
-        ${opcionesDe(p).length ? `<fieldset class="opcion mini-op"><legend>Color: <span class="elegido">elige uno</span></legend><div class="muestras">${opcionesDe(p).map((o, i) =>
-          `<span class="muestra-op"><input type="radio" name="op-${esc(p.id)}" id="op-${esc(p.id)}-${i}" value="${esc(o)}" data-foto="${esc(p.fotos[i] || p.fotos[0] || "")}"><label for="op-${esc(p.id)}-${i}" title="${esc(o)}" style="background:${hex(o)}"><span class="sr">${esc(o)}</span></label></span>`).join("")}</div>
+        ${opcionesDe(p).length ? `<fieldset class="opcion mini-op"><legend>Color: <span class="elegido">elige uno</span> <button type="button" class="quitar-color" hidden>✕ quitar</button></legend><div class="muestras">${opcionesDe(p).map((o, i) =>
+          `<span class="muestra-op"><input type="radio" name="op-${esc(p.id)}" id="op-${esc(p.id)}-${i}" value="${esc(o)}" data-foto="${esc(fotoDe(p, o, i))}"><label for="op-${esc(p.id)}-${i}" title="${esc(o)}" style="background:${hex(o)}"><span class="sr">${esc(o)}</span></label></span>`).join("")}</div>
           <p class="error-combo" role="alert" hidden>Elige el color.</p>
           ${p.guia ? `<button type="button" class="ver-colores" data-guia="${esc(p.guia)}" data-id="${esc(p.id)}" data-nombre="${esc(p.nombre)}">🎨 Ver todos los colores</button>` : ""}</fieldset>` : ""}
         <div class="valor">${pesos(p.precio)}</div>
         <button type="button" class="boton turquesa" data-producto="${esc(p.id)}" ${agotado ? "disabled" : ""}>${agotado ? "Agotado" : "Agregar al carrito"}</button>
       </div></article>`;
   }).join("");
-  $("puntos").innerHTML = CARRUSEL.map((_, i) => `<button type="button" tabindex="-1" data-i="${i}"></button>`).join("");
-  marcarPunto();
+  pintarPuntos();
 }
+let vistoCarrusel = false;
+new IntersectionObserver((en, o) => { if (en[0].isIntersecting && !vistoCarrusel) { vistoCarrusel = true; o.disconnect();
+  pixel("ViewContent", { content_ids: CARRUSEL.map(p => p.id), content_type: "product", content_category: "Complementa tu combo" }); } }, { threshold: .3 }).observe($("complementa"));
 $("pista").addEventListener("change", e => {   // al elegir color cambia la foto
   const r = e.target.closest('input[name^="op-"]'); if (!r) return;
   const tarjeta = r.closest(".tarjeta");
   if (r.dataset.foto) tarjeta.querySelector(".img img").src = r.dataset.foto;
   tarjeta.querySelector(".mini-op .elegido").textContent = r.value;
+  tarjeta.querySelector(".quitar-color").hidden = false;
   tarjeta.querySelector(".mini-op .error-combo").hidden = true;
 });
+// Volver a la foto principal cuando el cliente quita el color (tocando otra vez el mismo círculo o "✕ quitar")
+function quitarColor(tarjeta) {
+  const p = buscar(tarjeta.querySelector("[data-producto]").dataset.producto);
+  tarjeta.querySelectorAll('input[name^="op-"]').forEach(x => { x.checked = false; delete x.dataset.estaba; });
+  tarjeta.querySelector(".img img").src = p.fotos[0] || "img/logo.png";
+  tarjeta.querySelector(".mini-op .elegido").textContent = "elige uno";
+  tarjeta.querySelector(".quitar-color").hidden = true;
+}
+$("pista").addEventListener("pointerdown", e => {
+  const m = e.target.closest(".muestra-op"); if (!m) return;
+  const x = m.querySelector("input"); x.dataset.estaba = x.checked ? "1" : "";
+});
 $("pista").addEventListener("click", e => {
+  const q = e.target.closest(".quitar-color"); if (q) { quitarColor(q.closest(".tarjeta")); return; }
+  const r = e.target.closest('input[name^="op-"]');
+  if (r && r.dataset.estaba === "1") { quitarColor(r.closest(".tarjeta")); return; }
   const g = e.target.closest(".ver-colores");
   if (g) { $("titulo-elegir").textContent = `Colores · ${g.dataset.nombre}`;
     $("cuerpo-elegir").innerHTML = `<img class="guia-colores" src="${esc(g.dataset.guia)}" alt="Todos los colores de ${esc(g.dataset.nombre)}">${(() => { const pr = buscar(g.dataset.id), ls = pr && pr.letras || [];
@@ -627,16 +682,31 @@ const pasoCarrusel = () => { const t = $("pista").querySelector(".tarjeta"); ret
 $("flecha-izq").addEventListener("click", () => $("pista").scrollBy({ left: -pasoCarrusel(), behavior: "smooth" }));
 $("flecha-der").addEventListener("click", () => $("pista").scrollBy({ left: pasoCarrusel(), behavior: "smooth" }));
 $("puntos").addEventListener("click", e => { const b = e.target.closest("button"); if (b) $("pista").scrollTo({ left: Number(b.dataset.i) * pasoCarrusel(), behavior: "smooth" }); });
-function marcarPunto() {
-  const i = Math.round($("pista").scrollLeft / pasoCarrusel());
-  [...$("puntos").children].forEach((b, n) => b.classList.toggle("activo", n === Math.min(i, CARRUSEL.length - 1)));
+// Un punto por cada posición a la que se puede llegar (en computador se ven 4 tarjetas a la vez)
+function posiciones() {
+  const p = $("pista"), visibles = Math.max(1, Math.round((p.clientWidth + 18) / pasoCarrusel()));
+  return Math.max(1, CARRUSEL.length - visibles + 1);
 }
+function pintarPuntos() {
+  const n = posiciones();
+  $("puntos").innerHTML = n > 1 ? Array.from({ length: n }, (_, i) => `<button type="button" tabindex="-1" data-i="${i}"></button>`).join("") : "";
+  marcarPunto();
+}
+function marcarPunto() {
+  const p = $("pista"), n = $("puntos").children.length; if (!n) return;
+  const alFinal = p.scrollLeft + p.clientWidth >= p.scrollWidth - 8;
+  const i = alFinal ? n - 1 : Math.min(n - 1, Math.round(p.scrollLeft / pasoCarrusel()));
+  [...$("puntos").children].forEach((b, k) => b.classList.toggle("activo", k === i));
+}
+let tPuntos; addEventListener("resize", () => { clearTimeout(tPuntos); tPuntos = setTimeout(pintarPuntos, 150); });
 $("pista").addEventListener("scroll", () => requestAnimationFrame(marcarPunto), { passive: true });
 
 function agregar(id, color, talla, cantidad, regaloColor = "", regaloTalla = "") {
   const l = carrito.find(x => x.id === id && x.color === color && x.talla === talla && (x.regaloColor || "") === regaloColor && (x.regaloTalla || "") === regaloTalla);
   if (l) l.cantidad = Math.min(10, l.cantidad + cantidad); else carrito.push({ id, color, talla, cantidad, regaloColor, regaloTalla });
   guardar();
+  const pr = buscar(id);
+  pixel("AddToCart", { content_ids: [id], content_name: pr.nombre, content_type: "product", value: pr.precio * cantidad, currency: "COP" });
 }
 
 /* ---------- Reloj del Black Days ---------- */
@@ -673,7 +743,7 @@ function pintarLista() {
     return;
   }
   $("lista-carrito").innerHTML = carrito.map((l, i) => { const c = buscar(l.id); return `<li class="linea">
-    <img src="${esc((!esCombo(c) && l.color && c.fotos[opcionesDe(c).indexOf(l.color)]) || c.fotos[0] || "img/logo.png")}" alt="">
+    <img src="${esc(!esCombo(c) && l.color ? fotoDe(c, l.color, opcionesDe(c).indexOf(l.color)) : (c.fotos[0] || "img/logo.png"))}" alt="">
     <div>
       <h4>${esc(c.nombre)}</h4>
       ${esCombo(c) ? `<div class="det">Color ${esc(l.color)} · Talla ${esc(l.talla)}</div>` : l.color ? `<div class="det">Color ${esc(l.color)}</div>` : ""}
@@ -818,9 +888,10 @@ async function pagar() {
     };
     vigilarCierre(() => volverAlPago("¿Quieres pagar con otro medio? Toca «Ir a pagar» y elige el que prefieras: Nequi, Bancolombia, tarjeta o PSE."));
     congelarFondo();
+    pixel("InitiateCheckout", { content_ids: carrito.map(l => l.id), num_items: unidades(), value: res.montoEnCentavos / 100, currency: "COP" });
     widget.open(rr => {
       const t = rr && rr.transaction;
-      if (t && t.status === "APPROVED" && t.id) consultarPago(t.id).catch(() => {}); // la tienda confirma con Wompi y anota el pedido
+      if (t && t.status === "APPROVED" && t.id) { consultarPago(t.id).catch(() => {}); compraPixel(t.id, res.montoEnCentavos / 100, carrito.map(l => l.id)); } // la tienda confirma con Wompi y anota el pedido
       if (t && (t.status === "APPROVED" || t.status === "PENDING")) { listo = true; soltarFondo(); if ($("carrito").open) $("carrito").close(); carrito = []; guardar(); mostrarGracias(); }
       else if (t) volverAlPago("El pago no se completó. Puedes intentarlo de nuevo o elegir otro medio de pago.");
     });
@@ -842,11 +913,18 @@ function ocultarGracias() {
   $("vista-gracias").classList.add("oculto");
   document.title = "SporTape · Combos deportivos";
 }
+// Compra para Meta: se envía una sola vez por transacción aprobada
+function compraPixel(tx, valor, ids) {
+  const k = "sportape-compra-" + tx;
+  try { if (localStorage.getItem(k)) return; localStorage.setItem(k, "1"); } catch {}
+  pixel("Purchase", { value: valor, currency: "COP", content_ids: ids, content_type: "product" }, { eventID: "compra-" + tx });
+}
 async function volvioDeWompi(tx) {
   mostrarGracias();
   if (!tx) { carrito = []; guardar(); return; }
   try {
     const t = await consultarPago(tx);
+    if (t.estado === "APPROVED") compraPixel(t.id, t.valor, carrito.map(l => l.id));
     if (t.estado === "APPROVED" || t.estado === "PENDING") { carrito = []; guardar(); return; }
     try { history.replaceState({}, "", location.pathname); } catch {}
     ocultarGracias();

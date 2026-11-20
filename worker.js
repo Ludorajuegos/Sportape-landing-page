@@ -101,8 +101,9 @@ function direcciones(enlace) {
   enlace = String(enlace || "").trim();
   const id = (enlace.match(/\/d\/([\w-]{20,})/) || [])[1] || (/^[\w-]{20,}$/.test(enlace) ? enlace : null);
   if (!id) return [];
-  const gid = (enlace.match(/[#&?]gid=(\d+)/) || [])[1] || "0";
-  return [`https://docs.google.com/spreadsheets/d/${id}/export?format=csv&gid=${gid}`];
+  // Sin gid, Google exporta la primera pestaña (la hoja puede no tener gid=0)
+  const gid = (enlace.match(/[#&?]gid=(\d+)/) || [])[1];
+  return [`https://docs.google.com/spreadsheets/d/${id}/export?format=csv${gid ? `&gid=${gid}` : ""}`];
 }
 let memoria = { hora: 0, datos: null };
 async function leerTienda(env, maxEdad = 60000) {
@@ -195,7 +196,8 @@ async function firmar(request, env, ctx) {
     if (esCombo) hayCombo = true;
     if (esCombo && !colores.includes(it.color)) return json(400, { error: `El color ${it.color || ""} ya no está disponible. Elige otro en tu carrito.` });
     const conRegalo = esCombo && tienda.regalo?.activo && !vencido(tienda.regalo);
-    if (conRegalo && (!colores.includes(it.regaloColor) || !tallas.includes(it.regaloTalla)))
+    // El regalo admite todos los colores de la hoja, también los que están agotados para el combo (rojo, azul)
+    if (conRegalo && (!tienda.colores.some(c => c.nombre === it.regaloColor) || !tallas.includes(it.regaloTalla)))
       return json(400, { error: "Elige el color y la talla del regalo de tu combo." });
     if (esCombo && !tallas.includes(it.talla)) return json(400, { error: "Revisa la talla de tu carrito." });
     porCombo[combo.id] = (porCombo[combo.id] || 0) + cantidad;
