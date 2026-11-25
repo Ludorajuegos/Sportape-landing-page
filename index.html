@@ -7,7 +7,7 @@
 <meta name="description" content="Combos deportivos con canilleras, medias antideslizantes, medias recortadas y cinta cohesiva. Elige color y talla, paga seguro en línea y recíbelo en toda Colombia.">
 <meta name="theme-color" content="#FFF7EE">
 <meta property="og:title" content="SporTape · Combos deportivos">
-<meta property="og:description" content="Combo Deportivo por $50.000 + regalo de perneras y canilleras. Envíos a toda Colombia, pago seguro con Wompi.">
+<meta property="og:description" content="Combo Deportivo por $50.000 + regalo de perneras y canilleras. Envíos a toda Colombia. Paga contraentrega, cuando lo recibes, o en línea con Wompi.">
 <meta property="og:image" content="https://sportape.com.co/img/portada-combo.jpg">
 <meta property="og:image:alt" content="Combo Deportivo SporTape por $50.000">
 <meta property="og:url" content="https://sportape.com.co/">
@@ -274,6 +274,16 @@ dialog.carrito{margin:0 0 0 auto; height:100dvh; max-height:100dvh; width:min(46
 .linea-res{display:flex; justify-content:space-between; padding:3px 0; color:var(--suave)}
 .linea-res.total{color:var(--texto); font-weight:800; font-size:20px; padding:8px 0 14px}
 .nota{color:var(--suave); font-size:13.5px; text-align:center; margin:10px 0 0}
+/* Pago contraentrega */
+.botones-pago{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:4px}
+.botones-pago .boton{flex-direction:column; gap:2px; padding:12px 10px; font-size:15.5px; line-height:1.15; text-align:center}
+.botones-pago .boton small{font-weight:600; font-size:12.5px; opacity:.92}
+@media (max-width:380px){ .botones-pago{grid-template-columns:1fr} }
+.ventaja-ce > span:last-child{font-weight:800}
+.ventajas li.ventaja-ce .ico{background:rgba(29,175,184,.2)}
+.sello-ce{position:absolute; right:0; top:-50px; z-index:3; transform:rotate(3deg); background:var(--turquesa); color:#fff; font-weight:800; font-size:15px; padding:9px 14px; border-radius:999px; box-shadow:0 8px 20px rgba(14,138,147,.35); border:2px solid #fff}
+.chip-ce{display:inline-block; margin-top:10px; background:var(--azul); color:#fff; border-radius:999px; padding:6px 14px; font-weight:800; font-size:14.5px}
+.medios .medio-ce{background:var(--turquesa); color:#fff; border-color:var(--turquesa); font-weight:800}
 .error{background:#FDECEC; color:#B71C1C; border-radius:12px; padding:10px 14px; font-size:15px; margin:0 0 12px}
 .aviso-pago{background:#FFF3E0; color:#8A4B00; border-radius:12px; padding:10px 14px; font-size:15px; margin:0 0 12px}
 form fieldset{border:0; margin:0 0 6px; padding:0}
@@ -340,10 +350,10 @@ html.pagando .waybox-modal{position:fixed !important; top:5px !important; max-he
         <h1 id="titulo-portada">Arma tu juego completo con nuestro <span class="degradado">súper combo</span></h1>
       </div>
       <div class="p-resto">
-        <p class="lema">Combos deportivos con canilleras, medias antideslizantes, medias recortadas y cinta cohesiva. Eliges el color y la talla, pagas en línea y te llega a casa.</p>
+        <p class="lema">Combos deportivos con canilleras, medias antideslizantes, medias recortadas y cinta cohesiva. Eliges el color y la talla, te llega a casa y <b>pagas cuando lo recibes</b>.</p>
         <ul class="ventajas">
           <li><span class="ico" aria-hidden="true">🚚</span><span>Envíos a toda Colombia<small id="ventaja-envio">Bogotá y Soacha $10.000 · Resto del país $17.000</small></span></li>
-          <li><span class="ico" aria-hidden="true">🔒</span><span>Pago seguro con Wompi<small>Nequi, Bancolombia, tarjeta o PSE</small></span></li>
+          <li class="ventaja-ce"><span class="ico" aria-hidden="true">💵</span><span>Pago contraentrega<small>Pagas cuando te llega · o en línea con Wompi</small></span></li>
           <li><span class="ico" aria-hidden="true">👟</span><span>Tallas M y L<small id="ventaja-tallas">M: 32 a 35 en calzado · L: 36 a 41 en calzado</small></span></li>
         </ul>
         <div class="acciones">
@@ -354,6 +364,7 @@ html.pagando .waybox-modal{position:fixed !important; top:5px !important; max-he
       <div class="ilustracion">
         <div class="mancha" aria-hidden="true"></div>
         <img src="img/portada-combo.jpg" alt="Combo Deportivo: canilleras, medias, perneras y cinta cohesiva, en naranja, verde neón, blanco, amarillo y negro" width="1080" height="1350">
+        <div class="sello-ce" aria-hidden="true">💵 Pago contraentrega</div>
         <div class="sello"><small>POR SOLO</small><strong id="desde">$50.000</strong></div>
         <div class="sello-gratis oculto" id="sello-gratis"><small>🎁 Y llévate GRATIS, adicional</small><strong>1 par extra de perneras<br>+ 1 par extra de canilleras</strong><em>¡En total 2 pares de cada uno!</em></div>
       </div>
@@ -368,6 +379,7 @@ html.pagando .waybox-modal{position:fixed !important; top:5px !important; max-he
           <div>
             <h3>¡Aprovecha los Black Days!</h3>
             <p id="texto-regalo">En Black Days, con la compra de cualquier combo te regalamos un par ADICIONAL de perneras y un par ADICIONAL de canilleras.</p>
+            <span class="chip-ce">💵 Paga contraentrega: pagas cuando te llegue</span>
           </div>
           <div class="reloj-grande oculto" id="reloj-grande" aria-hidden="true">
             <div><b data-r="d">00</b><small>días</small></div><div><b data-r="h">00</b><small>horas</small></div><div><b data-r="m">00</b><small>min</small></div><div><b data-r="s">00</b><small>seg</small></div>
@@ -406,9 +418,9 @@ html.pagando .waybox-modal{position:fixed !important; top:5px !important; max-he
             <ol class="pasos">
               <li><div><b>Elige tu combo</b><span>Escoge el color, la talla y cuántos quieres. Puedes sumar más productos al mismo pedido.</span></div></li>
               <li><div><b>Escribe tus datos de envío</b><span>Nombre, celular y dirección. El envío se calcula solo según tu ciudad.</span></div></li>
-              <li><div><b>Paga en línea con Wompi</b><span>Apenas se apruebe el pago preparamos tu pedido y te llega en 3 a 4 días hábiles.</span></div></li>
+              <li><div><b>Paga contraentrega o en línea</b><span>Elige «Pagar contraentrega» y pagas cuando te llegue, o paga en línea con Wompi. Te llega en 3 a 4 días hábiles.</span></div></li>
             </ol>
-            <div class="medios" aria-label="Medios de pago"><span>Nequi</span><span>Botón Bancolombia</span><span>Tarjeta débito o crédito</span><span>PSE</span></div>
+            <div class="medios" aria-label="Medios de pago"><span class="medio-ce">💵 Contraentrega</span><span>Nequi</span><span>Botón Bancolombia</span><span>Tarjeta débito o crédito</span><span>PSE</span></div>
             <a class="boton turquesa boton-brillo" href="#combo" style="margin-top:22px">⚽ Quiero mi combo</a>
           </div>
         </div>
@@ -416,7 +428,8 @@ html.pagando .waybox-modal{position:fixed !important; top:5px !important; max-he
         <div class="preguntas" aria-labelledby="titulo-preguntas">
           <h2 id="titulo-preguntas">Preguntas frecuentes</h2>
           <div class="grilla">
-            <details><summary>¿Cuánto tarda en llegar?</summary><p>Entre 3 y 4 días hábiles después de aprobado el pago, según tu ciudad.</p></details>
+            <details open><summary>¿Puedo pagar contraentrega?</summary><p>¡Sí! En el carrito, después de escribir tus datos, toca «Pagar contraentrega». No pagas nada por adelantado: pagas el total cuando la transportadora te entregue el pedido. Te podemos contactar por WhatsApp para confirmar tu pedido antes de despacharlo.</p></details>
+            <details><summary>¿Cuánto tarda en llegar?</summary><p>Entre 3 y 4 días hábiles después de confirmado tu pedido, según tu ciudad.</p></details>
             <details><summary>¿Tienes un problema con tu pedido o tu pago?</summary><p>Escríbenos a nuestro <a href="https://wa.me/573138605888?text=Hola%2C%20necesito%20soporte%20con%20mi%20pedido%20de%20SporTape" target="_blank" rel="noopener">WhatsApp de soporte</a>, solo si necesitas ayuda con tus pagos, envíos y pedidos ya hechos. Siempre será un gusto atenderte y ayudarte para que tengas la mejor experiencia.</p></details>
             <details id="faq-regalo" class="oculto"><summary>¿Cómo funciona el regalo de Black Days?</summary><p id="faq-regalo-texto"></p></details>
           </div>
@@ -437,14 +450,14 @@ html.pagando .waybox-modal{position:fixed !important; top:5px !important; max-he
 
 <section class="gracias oculto" id="vista-gracias">
   <div class="contenedor">
-    <h1>¡Gracias por tu <span class="degradado">compra!</span></h1>
-    <p>Recibimos tu pago. Te llegará la confirmación a tu correo y te avisaremos cuando despachemos tu pedido. ¿Alguna duda con tu pedido? Escríbenos a soporte por <a href="https://wa.me/573138605888?text=Hola%2C%20necesito%20soporte%20con%20mi%20pedido%20de%20SporTape" target="_blank" rel="noopener">WhatsApp 313 860 5888</a>.</p>
+    <h1 id="gracias-titulo">¡Gracias por tu <span class="degradado">compra!</span></h1>
+    <p id="gracias-texto">Recibimos tu pago. Te llegará la confirmación a tu correo y te avisaremos cuando despachemos tu pedido. ¿Alguna duda con tu pedido? Escríbenos a soporte por <a href="https://wa.me/573138605888?text=Hola%2C%20necesito%20soporte%20con%20mi%20pedido%20de%20SporTape" target="_blank" rel="noopener">WhatsApp 313 860 5888</a>.</p>
     <a class="boton" href="./">Volver a la tienda</a>
   </div>
 </section>
 
 <footer class="pie">
-  <div class="contenedor"><span>© SporTape · Equipamiento deportivo</span><span>Pago seguro con Wompi</span></div>
+  <div class="contenedor"><span>© SporTape · Equipamiento deportivo</span><span>Pago contraentrega o en línea con Wompi</span></div>
 </footer>
 
 <a class="soporte-wa" href="https://wa.me/573138605888?text=Hola%2C%20necesito%20soporte%20con%20mi%20pedido%20de%20SporTape" target="_blank" rel="noopener" aria-label="Soporte por WhatsApp: ayuda con pagos, envíos y pedidos">
@@ -817,11 +830,11 @@ function pintarDatos() {
     const n = e.target.name; if (!n) return;
     datos[n] = e.target.value;
     if (n === "departamento" && datos.departamento === "Bogotá D.C." && !datos.ciudad) { datos.ciudad = "Bogotá"; $("f-ciudad").value = "Bogotá"; }
-    if (erroresCampo[n]) { delete erroresCampo[n]; const c = e.target.closest(".campo"); c.classList.remove("con-error"); c.querySelector(".error-campo")?.remove(); e.target.removeAttribute("aria-invalid"); }
+    if (erroresCampo[n]) { delete erroresCampo[n]; if (!Object.keys(erroresCampo).length && errorPago === AVISO_DATOS) { errorPago = ""; pintarResumenDatos(); } const c = e.target.closest(".campo"); c.classList.remove("con-error"); c.querySelector(".error-campo")?.remove(); e.target.removeAttribute("aria-invalid"); }
     try { sessionStorage.setItem("sportape-datos", JSON.stringify(datos)); } catch {}
     if (n === "departamento" || n === "ciudad") pintarResumenDatos();
   });
-  f.addEventListener("submit", e => { e.preventDefault(); pagar(); });
+  f.addEventListener("submit", e => { e.preventDefault(); faltanDatos(erroresCampo = validar().e); });
 }
 function pintarResumenDatos() {
   const envio = valorEnvio(), z = zonaDe(datos);
@@ -831,8 +844,21 @@ function pintarResumenDatos() {
     <div class="linea-res"><span>Subtotal</span><span>${pesos(subtotal())}</span></div>
     <div class="linea-res"><span>Envío${z ? ` (${ENVIOS[z].nombre})` : ""}</span><span>${envio == null ? "Elige tu departamento" : pesos(envio)}</span></div>
     <div class="linea-res total"><span>Total</span><span>${pesos(subtotal() + (envio || 0))}</span></div>
-    <button type="submit" form="form-datos" class="boton ancho" id="pagar">Ir a pagar ${envio == null ? "" : pesos(subtotal() + envio)}</button>
-    <p class="nota">Pago seguro con Wompi: Nequi, Bancolombia, tarjeta o PSE.</p>`;
+    <div class="botones-pago">
+      <button type="button" class="boton turquesa" id="contraentrega" data-modo="contraentrega">💵 Pagar contraentrega<small>Pagas cuando te llegue</small></button>
+      <button type="button" class="boton" id="pagar" data-modo="linea">💳 Pagar en línea<small>🎁 + Obsequio sorpresa</small></button>
+    </div>
+    <p class="nota">Contraentrega: pagas ${envio == null ? "el total" : pesos(subtotal() + envio)} al recibir. En línea con Wompi (Nequi, Bancolombia, tarjeta o PSE): te llevas un obsequio sorpresa por pago anticipado.</p>`;
+}
+const AVISO_DATOS = "Diligencia tus datos de envío: revisa los campos marcados en rojo.";
+function faltanDatos(e) {
+  const n = Object.keys(e).length;
+  if (!n) { if (errorPago === AVISO_DATOS) errorPago = ""; return false; }
+  errorPago = AVISO_DATOS; avisoPago = "";
+  pintarDatos();
+  const c = $("f-" + Object.keys(e)[0]);
+  if (c) { c.scrollIntoView({ behavior: "smooth", block: "center" }); setTimeout(() => c.focus({ preventScroll: true }), 350); }
+  return true;
 }
 function validar() {
   const d = {}; CAMPOS.forEach(k => d[k] = String(datos[k] || "").trim());
@@ -874,9 +900,9 @@ async function consultarPago(id) {
 async function pagar() {
   const { d, e } = validar();
   erroresCampo = e;
-  if (Object.keys(e).length) { pintarDatos(); $("f-" + Object.keys(e)[0])?.focus(); return; }
+  if (faltanDatos(e)) return;
   errorPago = ""; avisoPago = "";
-  const b = $("pagar"); b.disabled = true; b.textContent = "Preparando el pago…";
+  const b = $("pagar"); b.disabled = true; $("contraentrega").disabled = true; b.textContent = "Preparando el pago…";
   try {
     const items = carrito.map(({ id, color, talla, cantidad, regaloColor, regaloTalla }) => ({ id, color, talla, cantidad, regaloColor, regaloTalla }));
     const r = await fetch("/api/firmar", { method: "POST", headers: { "Content-Type": "application/json" },
@@ -913,8 +939,35 @@ async function pagar() {
   }
 }
 
+/* ---------- Pago contraentrega ---------- */
+async function pedirContraentrega() {
+  const { d, e } = validar();
+  erroresCampo = e;
+  if (faltanDatos(e)) return;
+  errorPago = ""; avisoPago = "";
+  const b = $("contraentrega"); b.disabled = true; $("pagar").disabled = true; b.textContent = "Registrando tu pedido…";
+  try {
+    const items = carrito.map(({ id, color, talla, cantidad, regaloColor, regaloTalla }) => ({ id, color, talla, cantidad, regaloColor, regaloTalla }));
+    const ids = carrito.map(l => l.id);
+    pixel("InitiateCheckout", { content_ids: ids, num_items: unidades(), value: subtotal() + (valorEnvio() || 0), currency: "COP" });
+    const r = await fetch("/api/contraentrega", { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ items, envio: { departamento: d.departamento, ciudad: d.ciudad }, cliente: d }) });
+    const res = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(res.error || "No pudimos registrar tu pedido. Intenta de nuevo en un momento.");
+    compraPixel("ce-" + res.referencia, res.total, ids);
+    $("carrito").close(); carrito = []; guardar();
+    mostrarGracias({ contraentrega: true, total: res.total, nombre: d.nombre.split(/\s+/)[0] });
+  } catch (x) {
+    errorPago = x.message; pintarCarrito();
+  }
+}
+
 /* ---------- Gracias ---------- */
-function mostrarGracias() {
+function mostrarGracias(op = {}) {
+  if (op.contraentrega) {
+    $("gracias-titulo").innerHTML = `¡Pedido <span class="degradado">confirmado!</span>`;
+    $("gracias-texto").innerHTML = `${esc(op.nombre ? op.nombre + ", recibimos" : "Recibimos")} tu pedido contraentrega. <b>Pagas ${pesos(op.total)} cuando te llegue</b>, en 3 a 4 días hábiles. Te enviamos la confirmación a tu correo y te podemos escribir por WhatsApp para confirmar los datos de entrega. ¿Alguna duda? Escríbenos a soporte por <a href="https://wa.me/573138605888?text=Hola%2C%20necesito%20soporte%20con%20mi%20pedido%20de%20SporTape" target="_blank" rel="noopener">WhatsApp 313 860 5888</a>.`;
+  }
   document.querySelector(".s1").classList.add("oculto");
   ["combo", "complementa", "como-comprar"].forEach(id => $(id).classList.add("oculto"));
   $("vista-gracias").classList.remove("oculto");
@@ -926,7 +979,7 @@ function ocultarGracias() {
   $("vista-gracias").classList.add("oculto");
   document.title = "SporTape · Combos deportivos";
 }
-// Compra para Meta: se envía una sola vez por transacción aprobada
+// Compra para Meta: se envía una sola vez por transacción aprobada o pedido contraentrega
 function compraPixel(tx, valor, ids) {
   const k = "sportape-compra-" + tx;
   try { if (localStorage.getItem(k)) return; localStorage.setItem(k, "1"); } catch {}
@@ -950,6 +1003,12 @@ async function volvioDeWompi(tx) {
 $("abrir-carrito").addEventListener("click", abrirCarrito);
 $("barra-carrito").addEventListener("click", abrirCarrito);
 $("cerrar-carrito").addEventListener("click", () => $("carrito").close());
+// Botones de pago (no dependen del envío del formulario)
+$("resumen-carrito").addEventListener("click", e => {
+  const b = e.target.closest("[data-modo]");
+  if (!b || b.disabled) return;
+  b.dataset.modo === "contraentrega" ? pedirContraentrega() : pagar();
+});
 $("cerrar-elegir").addEventListener("click", () => $("elegir").close());
 ["carrito", "elegir"].forEach(id => $(id).addEventListener("click", e => { if (e.target === $(id)) $(id).close(); }));
 $("estrella").addEventListener("click", manejarSelector);

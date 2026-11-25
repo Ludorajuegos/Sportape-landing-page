@@ -143,13 +143,14 @@ Object.assign(TIENDA, ${JSON.stringify(tienda)});
 
 /* ---------- Hoja "pedidos sportape" ---------- */
 async function avisarPedidos(env, datos) {
-  if (!env.PEDIDOS_URL) return;
+  if (!env.PEDIDOS_URL) return false;
   try {
     const r = await fetch(env.PEDIDOS_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify(datos), redirect: "follow", signal: AbortSignal.timeout(20000) });
     const res = await r.json().catch(() => ({}));
     if (!res.ok) console.error("Hoja de pedidos:", res.error || r.status);
-  } catch (e) { console.error("Hoja de pedidos no respondió:", e.message); }
+    return !!res.ok;
+  } catch (e) { console.error("Hoja de pedidos no respondió:", e.message); return false; }
 }
 async function confirmarPago(env, id) {
   const r = await fetch(`${urlWompi(env)}/transactions/${encodeURIComponent(id)}`, { signal: AbortSignal.timeout(8000) });
@@ -163,64 +164,80 @@ async function confirmarPago(env, id) {
   return t;
 }
 
-/* ---------- Pago ---------- */
-async function firmar(request, env, ctx) {
-  const llavePublica = String(env.WOMPI_PUBLIC_KEY || "").trim(), secreto = String(env.WOMPI_INTEGRITY_KEY || "").trim();
-  if (!llavePublica || !secreto) return json(500, { error: "Los pagos en línea se activan muy pronto. Intenta de nuevo más tarde." });
-  const ambiente = llavePublica.startsWith("pub_test_") ? "test" : llavePublica.startsWith("pub_prod_") ? "prod" : "?";
-  if (ambiente === "?" || !secreto.startsWith(`${ambiente}_integrity_`))
-    return json(500, { error: "Las llaves de pago no coinciden. Revisa en Cloudflare que WOMPI_PUBLIC_KEY y WOMPI_INTEGRITY_KEY sean del mismo modo de Wompi (pruebas o producción)." });
-
+/* ---------- Pedido (común a pago en línea y contraentrega) ---------- */
+async function armarPedido(request, env, prefijo) {
   let items, destino, cliente;
   try { ({ items, envio: destino, cliente } = await request.json()); } catch { items = null; }
-  if (!destino || !destino.departamento || !destino.ciudad) return json(400, { error: "Completa los datos de envío." });
+  if (!destino || !destino.departamento || !destino.ciudad) return { error: json(400, { error: "Completa los datos de envío." }) };
   const ciudad = norm(destino.ciudad);
   const zona = (destino.departamento === "Bogotá D.C." || ciudad.startsWith("bogota") || ciudad === "soacha") ? "bogota" : "nacional";
-  if (!Array.isArray(items) || !items.length || items.length > 20) return json(400, { error: "El carrito está vacío." });
+  if (!Array.isArray(items) || !items.length || items.length > 20) return { error: json(400, { error: "El carrito está vacío." }) };
 
   const tienda = await leerTienda(env, 30000);
   const colores = tienda.colores.filter(c => c.activo).map(c => c.nombre);
   const tallas = tienda.tallas.filter(t => t.activo).map(t => t.nombre);
+  const falla = msg => ({ error: json(400, { error: msg }) });
   let total = 0;
   const partes = [], detalle = [], porCombo = {};
   let hayCombo = false;
   for (const it of items) {
     const combo = tienda.combos.find(c => c.id === it.id);
     const cantidad = Number(it.cantidad);
-    if (!combo) return json(400, { error: "Uno de los productos ya no está disponible. Revisa tu carrito." });
-    if (!Number.isInteger(cantidad) || cantidad < 1 || cantidad > 10) return json(400, { error: "Revisa las cantidades del carrito." });
+    if (!combo) return falla("Uno de los productos ya no está disponible. Revisa tu carrito.");
+    if (!Number.isInteger(cantidad) || cantidad < 1 || cantidad > 10) return falla("Revisa las cantidades del carrito.");
     const esCombo = combo.tipo !== "producto";
     const opciones = !esCombo && Array.isArray(combo.opciones) ? combo.opciones : [];
-    if (opciones.length && !opciones.includes(it.color))
-      return json(400, { error: `Elige el color de ${combo.nombre} en tu carrito.` });
+    if (opciones.length && !opciones.includes(it.color)) return falla(`Elige el color de ${combo.nombre} en tu carrito.`);
     if (esCombo) hayCombo = true;
-    if (esCombo && !colores.includes(it.color)) return json(400, { error: `El color ${it.color || ""} ya no está disponible. Elige otro en tu carrito.` });
+    if (esCombo && !colores.includes(it.color)) return falla(`El color ${it.color || ""} ya no está disponible. Elige otro en tu carrito.`);
     const conRegalo = esCombo && tienda.regalo?.activo && !vencido(tienda.regalo);
     // El regalo admite todos los colores de la hoja, también los que están agotados para el combo (rojo, azul)
     if (conRegalo && (!tienda.colores.some(c => c.nombre === it.regaloColor) || !tallas.includes(it.regaloTalla)))
-      return json(400, { error: "Elige el color y la talla del regalo de tu combo." });
-    if (esCombo && !tallas.includes(it.talla)) return json(400, { error: "Revisa la talla de tu carrito." });
+      return falla("Elige el color y la talla del regalo de tu combo.");
+    if (esCombo && !tallas.includes(it.talla)) return falla("Revisa la talla de tu carrito.");
     porCombo[combo.id] = (porCombo[combo.id] || 0) + cantidad;
     if (combo.inventario !== null && combo.inventario !== undefined && porCombo[combo.id] > combo.inventario)
-      return json(400, { error: combo.inventario > 0 ? `Solo quedan ${combo.inventario} unidades de ${combo.nombre}.` : `${combo.nombre} está agotado.` });
+      return falla(combo.inventario > 0 ? `Solo quedan ${combo.inventario} unidades de ${combo.nombre}.` : `${combo.nombre} está agotado.`);
     total += combo.precio * cantidad;
     partes.push(`${combo.id}x${cantidad}`);
     detalle.push({ id: combo.id, nombre: esCombo ? `${combo.nombre} (${it.color}, talla ${it.talla})${conRegalo ? ` + regalo (${it.regaloColor}, talla ${it.regaloTalla})` : ""}` : combo.nombre + (opciones.length ? ` (${it.color})` : ""), cantidad, precio: combo.precio });
   }
   total += ENVIOS[zona].valor;
-
-  const referencia = `${PREFIJO}${Date.now().toString(36).toUpperCase()}-${partes.join("_").slice(0, 170)}-${zona === "bogota" ? "BOG" : "NAL"}`;
-  const montoEnCentavos = Math.round(total * 100);
-  const firma = await sha256(`${referencia}${montoEnCentavos}COP${secreto}`);
-
+  const referencia = `${prefijo}${Date.now().toString(36).toUpperCase()}-${partes.join("_").slice(0, 170)}-${zona === "bogota" ? "BOG" : "NAL"}`;
   const c = cliente && typeof cliente === "object" ? cliente : {};
   const campos = ["nombre", "cedula", "celular", "correo", "departamento", "ciudad", "direccion", "barrio", "localidad", "especificaciones"];
-  ctx.waitUntil(avisarPedidos(env, {
-    accion: "intento", referencia, total, envio: ENVIOS[zona].valor, items: detalle,
+  return {
+    referencia, total, envio: ENVIOS[zona].valor, items: detalle,
     regalo: hayCombo && tienda.regalo?.activo && !vencido(tienda.regalo) ? tienda.regalo.titulo : "",
     cliente: Object.fromEntries(campos.map(k => [k, limpio(c[k], 300)]))
-  }));
-  return json(200, { referencia, montoEnCentavos, firma, llavePublica });
+  };
+}
+
+/* ---------- Pago en línea ---------- */
+async function firmar(request, env, ctx) {
+  const llavePublica = String(env.WOMPI_PUBLIC_KEY || "").trim(), secreto = String(env.WOMPI_INTEGRITY_KEY || "").trim();
+  if (!llavePublica || !secreto) return json(500, { error: "Los pagos en línea se activan muy pronto. Intenta de nuevo más tarde." });
+  const ambiente = llavePublica.startsWith("pub_test_") ? "test" : llavePublica.startsWith("pub_prod_") ? "prod" : "?";
+  if (ambiente === "?" || !secreto.startsWith(`${ambiente}_integrity_`))
+    return json(500, { error: "Las llaves de pago no coinciden. Revisa en Cloudflare que WOMPI_PUBLIC_KEY y WOMPI_INTEGRITY_KEY sean del mismo modo de Wompi (pruebas o producción)." });
+  const p = await armarPedido(request, env, PREFIJO);
+  if (p.error) return p.error;
+  const montoEnCentavos = Math.round(p.total * 100);
+  const firma = await sha256(`${p.referencia}${montoEnCentavos}COP${secreto}`);
+  ctx.waitUntil(avisarPedidos(env, { accion: "intento", ...p }));
+  return json(200, { referencia: p.referencia, montoEnCentavos, firma, llavePublica });
+}
+
+/* ---------- Pago contraentrega ---------- */
+async function contraentrega(request, env) {
+  const p = await armarPedido(request, env, PREFIJO + "CE-");
+  if (p.error) return p.error;
+  const cl = p.cliente;
+  if (!cl.nombre || !cl.cedula || !/^\d{10}$/.test(String(cl.celular).replace(/\D/g, "")) || !cl.direccion)
+    return json(400, { error: "Completa tus datos de envío para pedir contraentrega." });
+  const ok = await avisarPedidos(env, { accion: "contraentrega", ...p });
+  if (!ok) return json(502, { error: "No pudimos registrar tu pedido. Intenta de nuevo en un momento o escríbenos por WhatsApp." });
+  return json(200, { referencia: p.referencia, total: p.total });
 }
 
 async function transaccion(url, env) {
@@ -253,6 +270,7 @@ export default {
     const url = new URL(request.url), { pathname } = url;
     if (pathname === "/api/productos.js") return productosJS(env);
     if (pathname === "/api/firmar") return request.method === "POST" ? firmar(request, env, ctx) : json(405, { error: "Método no permitido." });
+    if (pathname === "/api/contraentrega") return request.method === "POST" ? contraentrega(request, env) : json(405, { error: "Método no permitido." });
     if (pathname === "/api/transaccion") return transaccion(url, env);
     if (pathname === "/api/wompi-eventos") return request.method === "POST" ? eventosWompi(request, env) : json(405, { error: "Método no permitido." });
     return env.ASSETS.fetch(request);
