@@ -197,6 +197,20 @@ dialog.elegir:has(.guia-colores){width:min(760px, calc(100vw - 24px))}
 .tarjeta .boton{padding:11px 16px; font-size:15px}
 .flecha{position:absolute; top:38%; width:48px; height:48px; border-radius:50%; border:0; background:#fff; box-shadow:var(--sombra); font-size:22px; font-weight:800; display:none; place-items:center; z-index:2}
 .flecha.izq{left:-18px} .flecha.der{right:-18px}
+/* Carrusel más compacto en celular: la tarjeta completa cabe en pantalla */
+@media (max-width:600px){
+  .pista{grid-auto-columns:64%; gap:12px}
+  .tarjeta .img{aspect-ratio:5/4}
+  .tarjeta .cuerpo{padding:12px 12px 14px; gap:4px}
+  .tarjeta h3{font-size:17px}
+  .tarjeta p{font-size:13px; line-height:1.38; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden}
+  .mini-op legend{font-size:13px; margin-bottom:6px}
+  .muestras{gap:6px}
+  .muestra-op label{width:23px; height:23px}
+  .ver-colores{font-size:13px; margin-top:6px}
+  .tarjeta .valor{font-size:20px; padding-top:4px}
+  .tarjeta .boton{padding:9px 12px; font-size:14px}
+}
 @media (min-width:900px){ .flecha{display:grid} }
 .puntos{display:flex; justify-content:center; gap:8px}
 .puntos button{width:10px; height:10px; border-radius:50%; border:0; padding:0; background:rgba(20,34,61,.2)}
@@ -818,7 +832,7 @@ function pintarDatos() {
           </select>${erroresCampo.departamento ? `<small class="error-campo" id="e-departamento">${esc(erroresCampo.departamento)}</small>` : ""}</div>
         ${campo("ciudad", "Ciudad o municipio", { attrs: 'autocomplete="address-level2"' })}
         ${campo("direccion", "Dirección", { attrs: 'autocomplete="address-line1" placeholder="Ej: Calle 123 # 45-67"' })}
-        ${campo("barrio", "Barrio")}
+        ${campo("barrio", "Barrio", { opcional: true })}
         ${campo("localidad", "Localidad", { opcional: true, ayuda: "Solo si vives en Bogotá. Ej: Suba, Kennedy." })}
         ${campo("especificaciones", "Especificaciones", { opcional: true, attrs: 'placeholder="Conjunto, torre, interior, casa, apto…"' })}
       </fieldset>
@@ -870,7 +884,6 @@ function validar() {
   if (!d.departamento) e.departamento = "Elige tu departamento.";
   if (!d.ciudad) e.ciudad = "Escribe tu ciudad o municipio.";
   if (d.direccion.length < 6) e.direccion = "Escribe la dirección completa.";
-  if (!d.barrio) e.barrio = "Escribe tu barrio.";
   d.cedula = d.cedula.replace(/[.\s]/g, ""); d.celular = d.celular.replace(/\s/g, "");
   return { d, e };
 }
